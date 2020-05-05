@@ -1,0 +1,76 @@
+.home{
+    .home-under{
+        img{
+            width: 400px;
+        }
+    }
+    .home-bottom{
+        padding: 15px;
+        ul{
+            padding-inline-start: 0;
+            justify-content: space-between;
+            margin-bottom: 0;
+            li{
+                width: 50%;
+                text-align: center;
+
+                &:first-child{
+                    border: 1px solid #D5D5D5;
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom: 1.5px solid #FC7521;
+                    button{
+                        color: #FC7521;
+                    }
+                }
+                button{
+                    border: none;
+                    background: none;
+                    color: gray;
+                    font-weight: bold;
+                }
+                // &:focus{
+                //     border: 1px solid #D5D5D5;
+                //     border-top-left-radius: 5px;
+                //     border-top-right-radius: 5px;
+                //     border-bottom: 1.5px solid #FC7521;
+                // }
+            }
+        }
+    }
+    .forsale, .transportation, .repair{
+        padding: 15px;
+        border-top: 1px solid #D5D5D5;
+        h3{
+            font-weight: 400;
+        }
+        .item{
+            position: relative;
+            // text-align: center;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            img{
+                position: absolute;
+                left: 0;
+                top: 0;
+                z-index: -1;
+                width: 130px;
+                height: 130px;
+                border-radius: 5px;
+            }
+            p{
+                color: white;
+                width: 80%;
+                text-align: center;
+            }
+        }
+    }
+    .view{
+        width: 100%;
+        padding: 15px 0;
+        margin-top: 15px;
+    }
+}

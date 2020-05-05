@@ -1,0 +1,29 @@
+.modalpreview{
+    position: relative;
+    background: gray;
+    height: 100vh;
+    background: black;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    p{
+        position: absolute;
+        right: 0px;
+        top: 20px;
+        color: white;
+        width: 100%;
+        text-align: center;
+    }
+    i{
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        padding: 2px 5px;
+        border-radius: 50%;
+        background: white;
+    }
+    img{
+        width: 370px;
+        height: 370px;
+    }
+}

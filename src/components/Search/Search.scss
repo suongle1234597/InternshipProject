@@ -1,0 +1,22 @@
+.search{
+    color:rgba(72, 72, 72, 0.5);
+    border: 1px solid #D5D5D5;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+
+    input{
+        margin-left: 10px;
+        border: none;
+        width: 95%;
+
+        &::placeholder{
+            color:rgba(72, 72, 72, 0.5);
+        }
+
+        &:focus{
+            outline: none;
+        }
+    }
+}
