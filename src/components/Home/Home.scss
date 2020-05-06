@@ -1,43 +1,16 @@
 .home{
+    width: 100%;
     .home-under{
-        img{
-            width: 400px;
-        }
-    }
-    .home-bottom{
-        padding: 15px;
-        ul{
-            padding-inline-start: 0;
-            justify-content: space-between;
-            margin-bottom: 0;
-            li{
-                width: 50%;
-                text-align: center;
-
-                &:first-child{
-                    border: 1px solid #D5D5D5;
-                    border-top-left-radius: 5px;
-                    border-top-right-radius: 5px;
-                    border-bottom: 1.5px solid #FC7521;
-                    button{
-                        color: #FC7521;
-                    }
+        .carousel-inner{
+            .carousel-item{
+                img{
+                    width: 400px;
+                    height: 300px;
                 }
-                button{
-                    border: none;
-                    background: none;
-                    color: gray;
-                    font-weight: bold;
-                }
-                // &:focus{
-                //     border: 1px solid #D5D5D5;
-                //     border-top-left-radius: 5px;
-                //     border-top-right-radius: 5px;
-                //     border-bottom: 1.5px solid #FC7521;
-                // }
             }
         }
     }
+   
     .forsale, .transportation, .repair{
         padding: 15px;
         border-top: 1px solid #D5D5D5;
@@ -46,7 +19,6 @@
         }
         .item{
             position: relative;
-            // text-align: center;
             width: 130px;
             height: 130px;
             display: flex;
@@ -68,9 +40,53 @@
             }
         }
     }
-    .view{
-        width: 100%;
-        padding: 15px 0;
-        margin-top: 15px;
+}
+
+.view{
+    width: 100%;
+    padding: 15px 0;
+    margin-top: 15px;
+}
+
+.home-bottom{
+    padding: 15px;
+
+    .forsale, .repair{
+        padding: 15px;
+        border-top: 1px solid #D5D5D5;
+    }
+    ul{
+        padding-inline-start: 0;
+        justify-content: space-between;
+        margin-bottom: 0;
+        li{
+            width: 50%;
+            text-align: center;
+
+            &:first-child{
+                border: 1px solid #D5D5D5;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom: 1.5px solid #FC7521;
+                button{
+                    color: #FC7521;
+                }
+            }
+            button{
+                border: none;
+                background: none;
+                color: gray;
+                font-weight: bold;
+            }
+            // &:focus{
+            //     border: 1px solid #D5D5D5;
+            //     border-top-left-radius: 5px;
+            //     border-top-right-radius: 5px;
+            //     border-bottom: 1.5px solid #FC7521;
+            //     button{
+            //         color: #FC7521;
+            //     }
+            // }
+        }
     }
 }

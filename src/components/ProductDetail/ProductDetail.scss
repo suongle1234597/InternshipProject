@@ -1,8 +1,16 @@
 .productdetail{
     .slide{
-        img{
-            width: 100%;
-            height: 380px;
+        // img{
+        //     width: 100%;
+        //     height: 380px;
+        // }
+        .carousel-inner{
+            .carousel-item{
+                img{
+                    width: 400px;
+                    height: 300px;
+                }
+            }
         }
     }
     .contact{
@@ -25,5 +33,11 @@
             width: 1px;
             background: white;
         }
+    }
+    p{
+        padding: 15px;
+        margin: 15px 15px 50px 15px;
+        height: 159px;
+        background: #E4E4E4;
     }
 }
