@@ -3,7 +3,7 @@ import './Home.scss'
 import Search from '../Search/Search'
 import Product from '../Product/Product'
 import { Link } from 'react-router-dom'
-import Slide from '../Slide/Silde'
+import Slide from '../Slide/Slide'
 import { getProduct } from '../../action/ProductAction'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -24,7 +24,7 @@ const Home = props => {
     ]
 
     useEffect(() => {
-        dispatch(getProduct())
+        // dispatch(getProduct())
         console.log(product)
         return () => {
             console.log("clean up")
@@ -34,7 +34,7 @@ const Home = props => {
     return (
         <div className="home">
             <div className="home-under">
-                <Slide items={items} showNavs={false} />
+                <Slide group={items} />
             </div>
             <div className="home-bottom">
                 <ul className="flex">

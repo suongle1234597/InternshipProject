@@ -1,7 +1,7 @@
 import React from 'react'
 import './ProductDetail.scss'
 import { Link } from 'react-router-dom'
-import Slide from '../Slide/Silde'
+import Slide from '../Slide/Slide'
 
 const ProductDetail = () => {
     const items = [
@@ -13,7 +13,7 @@ const ProductDetail = () => {
         <div className="productdetail">
             <div className="slide">
                 {/* <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47b439f636b71f80b6d95e9023c8d70ec2f08b34/3.PNG" alt="" /> */}
-                <Slide items={items} showNavs={false} />
+                {/* <Slide items={items} /> */}
             </div>
 
             <table class="table table-striped">

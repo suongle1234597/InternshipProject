@@ -7,17 +7,17 @@ const initialState = {
 
 const productReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_PRODUCT: {
-            return {
-                product: action.response
-            }
-        }
-        case GET_PRODUCT_DETAIL: {
-            return {
-                product: action.response
-            }
-        }
-        default: return state;
+        // case GET_PRODUCT: {
+        //     return {
+        //         product: action.response
+        //     }
+        // }
+        // case GET_PRODUCT_DETAIL: {
+        //     return {
+        //         product: action.response
+        //     }
+        // }
+        default: return state
     }
 }
 
