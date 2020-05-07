@@ -13,7 +13,7 @@
    
     .forsale, .transportation, .repair{
         padding: 15px;
-        border-top: 1px solid #D5D5D5;
+        border-top: 1px solid var(--lightgray);
         h3{
             font-weight: 400;
         }
@@ -34,7 +34,7 @@
                 border-radius: 5px;
             }
             p{
-                color: white;
+                color: var(--white);
                 width: 80%;
                 text-align: center;
             }
@@ -53,7 +53,7 @@
 
     .forsale, .repair{
         padding: 15px;
-        border-top: 1px solid #D5D5D5;
+        border-top: 1px solid var(--lightgray);
     }
     ul{
         padding-inline-start: 0;
@@ -64,12 +64,12 @@
             text-align: center;
 
             &:first-child{
-                border: 1px solid #D5D5D5;
+                border: 1px solid var(--lightgray);
                 border-top-left-radius: 5px;
                 border-top-right-radius: 5px;
-                border-bottom: 1.5px solid #FC7521;
+                border-bottom: 1.5px solid var(--orange);
                 button{
-                    color: #FC7521;
+                    color: var(--orange);
                 }
             }
             button{
@@ -79,7 +79,7 @@
                 font-weight: bold;
             }
             // &:focus{
-            //     border: 1px solid #D5D5D5;
+            //     border: 1px solid var(--lightgray);
             //     border-top-left-radius: 5px;
             //     border-top-right-radius: 5px;
             //     border-bottom: 1.5px solid #FC7521;

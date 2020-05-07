@@ -1,0 +1,37 @@
+.searchproduct{
+    .contact{
+        button{
+            background: var(--darkwhite);
+            color: var(--gray-text-button);
+        }
+    }
+    .item{
+        .running{
+            position: relative;
+            justify-content: space-between;
+            input{
+                border: 1px solid var(--lightgray);
+                padding: 5px 10px;
+                width: 150px;
+            }
+            .inputNumber{
+                position: relative;
+                p{
+                    position: absolute;
+                    right: 15px;
+                    top: 18%;
+                    color: var(--gray-background-button);
+                }
+            }
+            p.to{
+                position: absolute;
+                right: 49%;
+                top: 18%;
+            }
+        }
+    }
+    .year{
+        border-bottom: 1px solid var(--lightgray);
+        padding: 15px;
+    }
+}
