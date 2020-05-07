@@ -1,14 +1,27 @@
 .productdetail{
     .slide{
-        // img{
-        //     width: 100%;
-        //     height: 380px;
-        // }
-        .carousel-inner{
-            .carousel-item{
-                img{
-                    width: 400px;
-                    height: 300px;
+        .owl-item{
+            img{
+                width: 400px;
+                height: 250px;
+            }
+        }
+        .owl-theme{
+            position: relative;
+            .owl-dots{
+                position: absolute;
+                left: 45%;
+                bottom: 5px;
+                .owl-dot{
+                    margin-right: -8px;
+                    span{
+                        background: white;
+                    }
+                }
+                .active{
+                    span{
+                        background: #FC7521;
+                    }
                 }
             }
         }
