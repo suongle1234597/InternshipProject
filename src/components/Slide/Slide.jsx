@@ -8,40 +8,37 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 const Slide = ({
     group,
     items,
-    duration,
-    transitionDuration,
-    infinite,
-    indicators,
-    arrows,
-    scale,
-    pauseOnHover,
-    onChange,
-    showNavs
+    nav,
+    dots,
+    autoplay,
+    margin,
+    loop,
+    autoplayTimeout
 }) => {
     return (
         <OwlCarousel
             className="owl-theme"
-            loop
-            margin={10}
-            nav
-            items={2}
-            autoplay={true} >
+            loop={loop}
+            margin={margin}
+            nav={nav}
+            dots={dots}
+            items={items}
+            autoplay={autoplay}
+            autoplayTimeout={autoplayTimeout}>
             {group.map((item, index) => <div key={index} class="item">{item}</div>)}
         </OwlCarousel>
     )
 }
 
 Slide.propTypes = {
-    items: PropTypes.array.isRequired,
-    duration: PropTypes.number,
-    transitionDuration: PropTypes.number,
-    infinite: PropTypes.oneOf([true, false]),
-    indicators: PropTypes.oneOf([true, false]),
-    arrows: PropTypes.oneOf([true, false]),
-    scale: PropTypes.number,
-    pauseOnHover: PropTypes.oneOf([true, false]),
-    onChange: PropTypes.func.isRequired,
-    showNavs: PropTypes.oneOf([true, false]),
+    group: PropTypes.array.isRequired,
+    items: PropTypes.number,
+    autoplay: PropTypes.oneOf([true, false]),
+    nav: PropTypes.oneOf([true, false]),
+    dots: PropTypes.oneOf([true, false]),
+    margin: PropTypes.number,
+    loop: PropTypes.oneOf([true, false]),
+    autoplayTimeout: PropTypes.number
 }
 
 export default Slide
