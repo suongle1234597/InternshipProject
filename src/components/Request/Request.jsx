@@ -21,8 +21,8 @@ const Request = () => {
     return (
         <div className="request">
             <TextFieldGroup value={formData.productName} onChange={handleChange} info="Product" name="productName" />
-            <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" />
-            <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" />
+            <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" placeholder="e.g. Construction Pt. Ltd." />
+            <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" placeholder="e.g. join smith" />
             <div className="number flex">
                 <TextFieldGroup value={formData.contactNumber} onChange={handleChange} info="Contact Number*" name="contactNumber" />
                 {/* <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" /> */}
