@@ -5,20 +5,39 @@ import './Settings.scss'
 const Settings = () => {
     return (
         <div className="settings">
-            <div className="item">
-                <Link to='/aboutUs'>About us</Link>
+            <h6>Settings</h6>
+            <Link to='/aboutUs'>
+                <div className="item flex">
+                    About us
+                <i className="fas fa-chevron-right"></i>
+                </div>
+            </Link>
+            <Link to='/termsAndConditions'>
+                <div className="item flex">
+                    Terms And Conditions
+                <i className="fas fa-chevron-right"></i>
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className="item flex">
+                    Privacy Policy
+                <i className="fas fa-chevron-right"></i>
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className="item flex">
+                    App version
+                <p>1.0</p>
+                </div>
+            </Link>
+            <Link to='/'>
+                <div className="item logout">
+                    Logout
             </div>
-            <div className="item">
-                <Link to='/termsAndConditions'>Terms And Conditions</Link>
-            </div>
-            <div className="item">
-                <Link to='/'>Privacy Policy</Link>
-            </div>
-            <div className="item">
-                <Link to='/'>App version</Link>
-            </div>
-            <div className="item">
-                <Link to='/'>Logout</Link>
+            </Link>
+            <div className="contact">
+                <p>Hove more Questions?</p>
+                <button className="view">Call us</button>
             </div>
         </div>
     )

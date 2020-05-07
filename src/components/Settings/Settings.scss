@@ -1,9 +1,32 @@
 .settings{
+    position: relative;
+    height: 97vh;
+    a{
+        color: black;
+        &:hover{
+            color: black;
+        }
+    }
+    h6{
+        margin: 15px 0;
+        text-align: center;
+        font-weight: bold;
+    }
     .item{
+        justify-content: space-between;
         padding: 15px;
         border-top: 1px solid #D5D5D5;
         a{
             color: black;
         }
+        &.logout{
+            border-bottom: 1px solid #D5D5D5;
+        }
+    }
+    .contact{
+        width: 100%;
+        position: absolute;
+        left: 0;
+        bottom: 15px;
     }
 }
