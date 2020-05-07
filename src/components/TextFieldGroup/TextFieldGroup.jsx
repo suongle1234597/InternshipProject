@@ -1,26 +1,22 @@
 import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import './TextFieldGroup.scss'
 
 const TextFieldGroup = ({
     type,
     info,
     value,
     onChange,
-    error
+    error,
+    placeholder
 }) => {
     return (
-        <div>
+        <div className="textFieldGroup">
             {info ? <p>{info}</p> : ""}
-            <div className="input-group">
-                <input className="form-control" type="text" value={value} onChange={onChange} />
+            <div>
+                <input type="text" value={value} onChange={onChange} placeholder={placeholder} />
             </div>
-            {/* <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">@</span>
-                </div>
-                <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div> */}
 
         </div>
     )
@@ -31,7 +27,8 @@ TextFieldGroup.propTypes = {
     info: PropTypes.string,
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    error: PropTypes.string
+    error: PropTypes.string,
+    placeholder: PropTypes.string
 }
 
 export default TextFieldGroup
