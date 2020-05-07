@@ -1,12 +1,10 @@
 .home{
     width: 100%;
     .home-under{
-        .carousel-inner{
-            .carousel-item{
-                img{
-                    width: 400px;
-                    height: 300px;
-                }
+        .owl-item{
+            img{
+                width: 400px;
+                height: 250px;
             }
         }
     }
@@ -89,4 +87,28 @@
             // }
         }
     }
+    .owl-carousel{
+        height: 200px;
+    }
+    .owl-item{
+        height: 200px;
+        .item{
+            height: 100%;
+        }
+        .product{
+            height: 200px;
+
+            p{
+                position: none;
+                top: 0;
+                top: 100px;
+                font-size: 14px;
+                line-height: 25px;
+                &.serial{
+                    color: #FC7521;
+                }
+            }
+        }
+    }
+   
 }

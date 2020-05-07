@@ -23,6 +23,20 @@ const Home = props => {
         <Product />
     ]
 
+    const items4 = [
+        <Link to="/listimg" className="item flex">
+            <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+            <p>Engine Overhaul</p>
+        </Link>,
+        <Link to="/listimg" className="item flex">
+            <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+            <p>Engine Overhaul</p>
+        </Link>, <Link to="/listimg" className="item flex">
+            <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+            <p>Engine Overhaul</p>
+        </Link>
+    ]
+
     useEffect(() => {
         // dispatch(getProduct())
         console.log(product)
@@ -34,7 +48,7 @@ const Home = props => {
     return (
         <div className="home">
             <div className="home-under">
-                <Slide group={items} />
+                <Slide group={items} items={1} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} />
             </div>
             <div className="home-bottom">
                 <ul className="flex">
@@ -46,8 +60,9 @@ const Home = props => {
                         <Search function="sale" />
                         <div className="forsale">
                             <h3>FOR SALE</h3>
-                            {/* <Slide items={items2} /> */}
-                            <Product />
+                            {/* <Product /> */}
+
+                            <Slide group={items2} items={2} dots={false} loop={true} autoplay={false} autoplayTimeout={5000} />
                             <Link to="/view"><button className="view">View Equipment for Sale</button></Link>
                         </div>
                     </>
@@ -73,11 +88,12 @@ const Home = props => {
 
             <div className="repair">
                 <h3>TRANSPORTATION SERVICE</h3>
-                {/* <Product /> */}
-                <Link to="/listimg" className="item flex">
+                <Slide group={items4} items={2} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} />
+
+                {/* <Link to="/listimg" className="item flex">
                     <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
                     <p>Engine Overhaul</p>
-                </Link>
+                </Link> */}
                 <p>Hove more Questions?</p>
                 <button className="view">Call us</button>
             </div>
