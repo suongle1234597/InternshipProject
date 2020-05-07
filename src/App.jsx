@@ -10,12 +10,18 @@ import ViewEquipment from './components/ViewEquipment/ViewEquipment'
 import Request from './components/Request/Request'
 import Info from './components/Info/Info'
 import Settings from './components/Settings/Settings'
+import SearchProduct from './components/SearchProduct/SearchProduct'
 
 const App = () => {
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
-  const aboutUs = "This mobile application is developed by Huasing Construction & Trading Pte Ltd. We are the authorised dealer for Doosan, Powerscreen and Ammann. We also supply a range of used heavy machinery to our customers."
-  const termsAndConditions = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
+  const aboutUs = ["This mobile application is developed by Huasing Construction & Trading Pte Ltd. We are the authorised dealer for Doosan, Powerscreen and Ammann. We also supply a range of used heavy machinery to our customers."]
+  const termsAndConditions = [
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, ",
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,",
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,",
+    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
+  ]
   const handleClickShowModal = () => {
     setModal(true)
   }
@@ -42,8 +48,9 @@ const App = () => {
           <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
           <Route path='/request' render={() => <Request />} />
           <Route path='/settings' render={() => <Settings />} />
-          <Route path='/aboutUs' render={() => <Info info={aboutUs} />} />
-          <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} />} />
+          <Route path='/aboutUs' render={() => <Info info={aboutUs} func="About Us" />} />
+          <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} func="Terms And Conditions" />} />
+          <Route path='/searchProduct' render={() => <SearchProduct />} />
         </Router>
         {modal === true ? <Modal /> : ""}
       </div>
