@@ -1,8 +1,8 @@
 .searchproduct{
     .contact{
         button{
-            background: #F1F1F1;
-            color: #7F7F7F;
+            background: var(--darkwhite);
+            color: var(--gray-text-button);
         }
     }
     .item{
@@ -10,7 +10,7 @@
             position: relative;
             justify-content: space-between;
             input{
-                border: 1px solid #D5D5D5;
+                border: 1px solid var(--lightgray);
                 padding: 5px 10px;
                 width: 150px;
             }
@@ -20,7 +20,7 @@
                     position: absolute;
                     right: 15px;
                     top: 18%;
-                    color: #B5B5B5;
+                    color: var(--gray-background-button);
                 }
             }
             p.to{
@@ -31,7 +31,7 @@
         }
     }
     .year{
-        border-bottom: 1px solid #D5D5D5;
+        border-bottom: 1px solid var(--lightgray);
         padding: 15px;
     }
 }

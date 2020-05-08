@@ -1,0 +1,43 @@
+.detail{
+    .slide{
+        // img{
+        //     width: 100%;
+        //     height: 380px;
+        // }
+        .carousel-inner{
+            .carousel-item{
+                img{
+                    width: 400px;
+                    height: 300px;
+                }
+            }
+        }
+    }
+    .contact{
+        width: 100%;
+        justify-content: space-between;
+        background: var(--orange);
+        padding: 15px 30px;
+        position: relative;
+
+        button{
+            border-radius: 0;
+        }
+
+        &:after{
+            content: '';
+            position: absolute;
+            left: 40%;
+            top:25%;
+            height: 50%;
+            width: 1px;
+            background: var(--white);
+        }
+    }
+    p{
+        padding: 15px;
+        margin: 15px 15px 50px 15px;
+        height: 159px;
+        background: var(--gray-background);
+    }
+}

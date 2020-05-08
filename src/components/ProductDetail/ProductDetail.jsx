@@ -12,8 +12,7 @@ const ProductDetail = () => {
     return (
         <div className="productdetail">
             <div className="slide">
-                {/* <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47b439f636b71f80b6d95e9023c8d70ec2f08b34/3.PNG" alt="" /> */}
-                {/* <Slide items={items} /> */}
+                <Slide group={items} items={1} dots={true} loop={true} autoplay={true} autoplayTimeout={5000} />
             </div>
 
             <table class="table table-striped">
