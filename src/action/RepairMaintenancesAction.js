@@ -1,4 +1,5 @@
-import { GET_REPAIRMAINTENANCES } from './type'
+import { GET_ERROR, CLEAR_ERROR, GET_REPAIRMAINTENANCES } from './type'
+import axios from 'axios'
 
 export const getRepairMaintenances = () => async dispatch => {
     await axios.get("http://huasing.vinova.sg/api/v1/repair_maintenances").then(res_api => {

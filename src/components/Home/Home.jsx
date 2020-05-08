@@ -6,17 +6,47 @@ import { Link } from 'react-router-dom'
 import Slide from '../Slide/Slide'
 import { getProduct } from '../../action/ProductAction'
 import { getTransportation } from '../../action/TransportationAction'
+import { getRepairMaintenances } from '../../action/RepairMaintenancesAction'
 import { useSelector, useDispatch } from 'react-redux'
+import is_Empty from '../../isEmpty'
 
 const Home = props => {
     const product = useSelector(state => state.productReducer.product)
     const transportation = useSelector(state => state.transportationReducer.transportation)
-    const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
+    // const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
     const dispatch = useDispatch()
+    const [productForSale, setProductForSale] = useState([])
+    const [productForRent, setProductForRent] = useState([])
+    const items2 = [], items3 = [], items4 = [], items5 = []
 
     useEffect(() => {
-        // dispatch(getProduct())
+        dispatch(getProduct())
+        dispatch(getTransportation())
+        // dispatch(getRepairMaintenances())
+
+        //neu product != rong
+
         console.log(product)
+        if (!is_Empty(product)) {
+            console.log("sssssssssssss")
+            console.log(product.data.filter(item => item.purpose === "for_sale"))
+            // setProductForSale(product.data.filter(item => item.purpose === "for_sale"))
+
+            // if (productForSale.length != 0) {
+            //     productForSale.map(item => items2.push(<Product img={item.images.url.original} name={item.model} price={item.serial_number} />))
+            // }
+
+            // setProductForRent(product.data.filter(item => item.purpose === "for_rent"))
+
+            // if (productForRent.length != 0) {
+            //     productForRent.map(item => items3.push(<Product img={item.images.url.original} name={item.model} price={item.serial_number} />))
+            // }
+        }
+
+        //neu transportation != rong
+        // if (!is_Empty(transportation)) {
+        //     transportation.map(item => items4.push(<Product img={item.images.url.original} name={item.transportation_type} price={item.weight} />))
+        // }
         return () => {
             console.log("clean up")
         }
@@ -28,19 +58,7 @@ const Home = props => {
         <img src="https://cdn.voh.com.vn/voh/Image/2019/06/10/thayloimuonnoibangnhunghinhanhbuonmangdaytamtrang8_20190610221410.jpg" alt="" />,
     ]
 
-    //neu product != rong
-    // const propductForSale = product.data.filter(item => item.purpose === "for_sale")
-    // const propductForRent = product.data.filter(item => item.purpose === "for_rent")
-
-    const items2 = []
-    // propductForSale.map(item => items2.push(<Product img={item.images.url.original} name={item.model} price={item.serial_number} />))
-
-    const items3 = []
-    // propductForRent.map(item => items3.push(<Product img={item.images.url.original} name={item.model} price={item.serial_number} />))
-
     // //neu transportation != rong
-    const items4 = []
-    // transportation.map(item => items4.push(<Product img={item.images.url.original} name={item.transportation_type} price={item.weight} />))
 
     // const items5 = [
     //     <Link to="/listimg" className="item flex">
@@ -56,12 +74,11 @@ const Home = props => {
     //     </Link>
     // ]
 
-    const items5 = []
-    repairMaintenances.map(item => items5.push(
-        <Link to="/listimg" className="item flex">
-            <img src={item.images.url.original} alt="" />
-            <p>{item.name}</p>
-        </Link>))
+    // repairMaintenances.map(item => items5.push(
+    //     <Link to="/listimg" className="item flex">
+    //         <img src={item.images.url.original} alt="" />
+    //         <p>{item.name}</p>
+    //     </Link>))
 
     return (
         <div className="home">
@@ -78,8 +95,7 @@ const Home = props => {
                         <Search function="sale" />
                         <div className="forsale">
                             <h3>FOR SALE</h3>
-                            {/* <Product /> */}
-
+                            {!is_Empty(product) && product.filter(item => item.purpose === "for_sale").map(item => <Product key={item.id} img={item.images[0].url.original} name={item.model} serial_number={item.serial_number} />)}
                             <Slide group={items2} items={2} dots={false} loop={true} autoplay={false} autoplayTimeout={5000} />
                             <Link to="/view"><button className="view">View Equipment for Sale</button></Link>
                         </div>
@@ -100,14 +116,13 @@ const Home = props => {
 
             <div className="transportation">
                 <h3>TRANSPORTATION SERVICE</h3>
-                <Product />
+                {!is_Empty(transportation) && transportation.map(item => <Product key={item.id} img={item.images[0].url.original} name={item.transportation_type} serial_number={item.weight} />)}
                 <button className="view">View Transportation Service</button>
             </div>
 
             <div className="repair">
-                <h3>TRANSPORTATION SERVICE</h3>
+                <h3>REPAIR / MAINTENANCE</h3>
                 <Slide group={items5} items={2} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} />
-
                 {/* <Link to="/listimg" className="item flex">
                     <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
                     <p>Engine Overhaul</p>
