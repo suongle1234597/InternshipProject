@@ -8,7 +8,7 @@ const repairMaintenancesReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_REPAIRMAINTENANCES: {
             return {
-                repairMaintenances: action.response
+                repairMaintenances: action.response.data
             }
         }
         default: return state

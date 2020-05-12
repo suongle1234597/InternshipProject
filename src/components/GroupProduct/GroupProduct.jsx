@@ -8,8 +8,7 @@ const GroupProduct = props => {
     return (
         <div className="transportation">
             <h3>{title}</h3>
-            {/* <Slide group={items} items={2} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} /> */}
-            <Slide group={items} items={2} dots={false} />
+            <Slide group={items} items={2} dots={false} loop={false} autoplay={true} autoplayTimeout={5000} />
             <Button link={link} name={buttonName} />
         </div>
     )

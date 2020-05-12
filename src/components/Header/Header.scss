@@ -1,0 +1,29 @@
+header{
+    ul{
+        padding-inline-start: 0;
+        justify-content: space-between;
+        margin-bottom: 0;
+        li{
+            width: 50%;
+            text-align: center;
+
+            button{
+                border: none;
+                background: none;
+                color: gray;
+                font-weight: bold;
+                width: 100%;
+               
+                &.active{
+                    border: 1px solid var(--lightgray);
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom: 1.5px solid var(--orange);
+                    color: #FC7521;
+                }
+            }
+        }
+    }
+}

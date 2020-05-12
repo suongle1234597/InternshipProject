@@ -1,14 +1,22 @@
-import { GET_TRANSPORTATION } from '../action/type'
+import { GET_TRANSPORTATION, GET_TRANSPORTATION_DETAIL } from '../action/type'
 
 const initialState = {
-    transportation: {}
+    transportation: {},
+    transportationDetail: {}
 }
 
 const transportationReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TRANSPORTATION: {
+            console.log(action.response.data.data)
+
             return {
                 transportation: action.response.data
+            }
+        }
+        case GET_TRANSPORTATION_DETAIL: {
+            return {
+                transportationDetail: action.response.data
             }
         }
         default: return state

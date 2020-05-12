@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const getProduct = () => async dispatch => {
     await axios.get("http://huasing.vinova.sg/api/v1/products?page=1").then(res_api => {
+
         dispatch({
             type: GET_PRODUCT,
             response: res_api.data

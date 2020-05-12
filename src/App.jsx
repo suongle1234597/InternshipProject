@@ -52,11 +52,11 @@ const App = () => {
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
             <Route path='/listimg' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
-            <Route path='/product/:slug' component={Detail} />
-            <Route path='/service/:slug' component={Detail} />
+            <Route path='/product/:id' component={Detail} />
+            <Route path='/service/:id' component={Detail} />
             <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
-            <Route path='/requestproduct' render={() => <Request />} />
-            <Route path='/requestservice' render={() => <Request />} />
+            <Route path='/requestproduct/:id' component={Request} />
+            <Route path='/requestservice/:id' component={Request} />
             <Route path='/settings' render={() => <Settings />} />
             <Route path='/aboutUs' render={() => <Info info={aboutUs} func="About Us" />} />
             <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} func="Terms And Conditions" />} />

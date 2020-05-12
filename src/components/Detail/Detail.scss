@@ -1,14 +1,32 @@
 .detail{
+    h6{
+        margin: 15px 0;
+        text-align: center;
+        font-weight: bold;
+    }
     .slide{
-        // img{
-        //     width: 100%;
-        //     height: 380px;
-        // }
-        .carousel-inner{
-            .carousel-item{
+        .owl-carousel{
+            position: relative;
+            .item{
                 img{
                     width: 400px;
                     height: 300px;
+                }
+            }
+            .owl-dots{
+                width: 100%;
+                position: absolute;
+                bottom: 8px;
+                button{
+                    margin: -4px;
+                    span{
+                        background: var(--white);
+                    }
+                    &.active{
+                        span{
+                            background: var(--orange);
+                        }
+                    }
                 }
             }
         }
@@ -39,5 +57,39 @@
         margin: 15px 15px 50px 15px;
         height: 159px;
         background: var(--gray-background);
+    }
+    table{
+        td{
+            i{
+                font-size: 6px;
+            }
+            &.available{
+                color: var(--green);
+                position: relative;
+                i{
+                    position: absolute;
+                    top: 45%;
+                    left: 90px;
+                }
+            }
+            &.notavailable{
+                color: var(--gray-background-button);
+                position: relative;
+                i{
+                    position: absolute;
+                    top: 45%;
+                    left: 120px;
+                }
+            }
+            &.comingsoon{
+                color: var(--orange);
+                position: relative;
+                i{
+                    position: absolute;
+                    top: 45%;
+                    left: 120px;
+                }
+            }
+        }
     }
 }
