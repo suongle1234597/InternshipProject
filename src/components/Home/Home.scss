@@ -15,6 +15,11 @@
         h3{
             font-weight: 400;
         }
+        .owl-item{
+            p{
+                position: none;
+            }
+        }
         .item{
             position: relative;
             width: 130px;
@@ -61,30 +66,23 @@
             width: 50%;
             text-align: center;
 
-            &:first-child{
-                border: 1px solid var(--lightgray);
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-                border-bottom: 1.5px solid var(--orange);
-                button{
-                    color: var(--orange);
-                }
-            }
             button{
                 border: none;
                 background: none;
                 color: gray;
                 font-weight: bold;
+                width: 100%;
+               
+                &.active{
+                    border: 1px solid var(--lightgray);
+                    border-top-left-radius: 5px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 0;
+                    border-bottom-left-radius: 0;
+                    border-bottom: 1.5px solid var(--orange);
+                    color: #FC7521;
+                }
             }
-            // &:focus{
-            //     border: 1px solid var(--lightgray);
-            //     border-top-left-radius: 5px;
-            //     border-top-right-radius: 5px;
-            //     border-bottom: 1.5px solid #FC7521;
-            //     button{
-            //         color: #FC7521;
-            //     }
-            // }
         }
     }
     .owl-carousel{
@@ -110,5 +108,4 @@
             }
         }
     }
-   
 }

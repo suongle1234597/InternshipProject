@@ -15,8 +15,6 @@ import { getProduct } from './action/ProductAction'
 import { useDispatch, useSelector } from 'react-redux'
 
 const App = () => {
-  const product = useSelector(state => state.productReducer.product)
-  const dispatch = useDispatch()
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
   const aboutUs = ["This mobile application is developed by Huasing Construction & Trading Pte Ltd. We are the authorised dealer for Doosan, Powerscreen and Ammann. We also supply a range of used heavy machinery to our customers."]
@@ -26,16 +24,13 @@ const App = () => {
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,",
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
   ]
-  useEffect(() => {
-    // dispatch(getProduct())
-    // console.log(product)
-    return () => {
-      console.log("clean up")
-    }
-  }, [])
 
   const handleClickShowModal = () => {
     setModal(true)
+  }
+
+  const handleClickCloseModal = () => {
+    setModal(false)
   }
 
   const handleClickSale = () => {
@@ -51,24 +46,26 @@ const App = () => {
   }
 
   return (
-    <div className="App">
-      <div className="container">
-        <Router>
-          <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
-          <Route path='/listimg' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
-          <Route path='/product/:slug' component={Detail} />
-          <Route path='/service/:slug' component={Detail} />
-          <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
-          <Route path='/requestproduct' render={() => <Request />} />
-          <Route path='/requestservice' render={() => <Request />} />
-          <Route path='/settings' render={() => <Settings />} />
-          <Route path='/aboutUs' render={() => <Info info={aboutUs} func="About Us" />} />
-          <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} func="Terms And Conditions" />} />
-          <Route path='/searchProduct' render={() => <SearchProduct />} />
-        </Router>
-        {modal === true ? <Modal /> : ""}
+    <>
+      <div className={modal === true ? "App modalActive" : "App"} >
+        <div className="container">
+          <Router>
+            <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
+            <Route path='/listimg' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
+            <Route path='/product/:slug' component={Detail} />
+            <Route path='/service/:slug' component={Detail} />
+            <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
+            <Route path='/requestproduct' render={() => <Request />} />
+            <Route path='/requestservice' render={() => <Request />} />
+            <Route path='/settings' render={() => <Settings />} />
+            <Route path='/aboutUs' render={() => <Info info={aboutUs} func="About Us" />} />
+            <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} func="Terms And Conditions" />} />
+            <Route path='/searchProduct' render={() => <SearchProduct />} />
+          </Router>
+        </div>
       </div>
-    </div>
+      {modal === true ? <Modal handleClickCloseModal={handleClickCloseModal} /> : ""}
+    </>
   );
 }
 

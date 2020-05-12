@@ -1,5 +1,10 @@
 .modalpreview{
-    position: relative;
+    position: fixed;
+    // position: relative;
+    opacity: 1;
+    top: 0;
+    right: 37%;
+    z-index: 100;
     background: var(--gray-text-button);
     height: 100vh;
     background: var(--black);
@@ -14,14 +19,18 @@
         width: 100%;
         text-align: center;
     }
-    i{
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        padding: 2px 5px;
-        border-radius: 50%;
-        background: var(--white);
+    button{
+        i{
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            padding: 2px 5px;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--black);
+        }
     }
+   
     img{
         width: 370px;
         height: 370px;

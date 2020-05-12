@@ -18,7 +18,7 @@ const Home = props => {
     const dispatch = useDispatch()
     const [productForSale, setProductForSale] = useState([])
     const [productForRent, setProductForRent] = useState([])
-    const itemsForSale = [], items3 = [], items4 = [], items5 = []
+    const items3 = [], items4 = [], items5 = []
 
     useEffect(() => {
         dispatch(getProduct())
@@ -48,22 +48,36 @@ const Home = props => {
         }
     }, [])
 
-    useEffect(() => {
-        if (!is_Empty(product)) {
-            const arr = product.filter(item => item.purpose === "for_sale")
-            arr.forEach(item => {
-                itemsForSale.push(<Product img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
-            });
-        }
-        return () => {
-            console.log("clean up")
-        }
-    }, [product])
+    // useEffect(() => {
+    //     if (!is_Empty(product)) {
+    //         const arr = product.filter(item => item.purpose === "for_sale")
+    //         arr.forEach(item => {
+    //             itemsForSale.push(<Product img={item.images[0].url.original} name={item.model} price={item.serial_number} />)
+    //         });
+    //         console.log(itemsForSale)
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [product])
 
     const items = [
         <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47b439f636b71f80b6d95e9023c8d70ec2f08b34/3.PNG" alt="" />,
         <img src="https://cdn.tgdd.vn/Files/2019/01/01/1142002/s8high_800x600.jpg" alt="" />,
         <img src="https://cdn.voh.com.vn/voh/Image/2019/06/10/thayloimuonnoibangnhunghinhanhbuonmangdaytamtrang8_20190610221410.jpg" alt="" />,
+    ]
+
+    // const itemsForSale = [
+    //     <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />,
+    //     <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />,
+    //     <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />,
+    //     <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />
+    // ]
+
+    const itemsForSale = [
+        <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />,
+        <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />,
+        <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />
     ]
 
     // //neu transportation != rong
@@ -95,8 +109,8 @@ const Home = props => {
             </div>
             <div className="home-bottom">
                 <ul className="flex">
-                    <li><button onClick={props.handleClickSale}>Purchase</button></li>
-                    <li><button onClick={props.handleClickRent}>Rental</button></li>
+                    <li><button onClick={props.handleClickSale} className={!props.toggle ? "active" : ""}>Purchase</button></li>
+                    <li><button onClick={props.handleClickRent} className={!props.toggle ? "" : "active"}> Rental</button></li>
                 </ul>
                 {!props.toggle ?
                     <>
@@ -111,7 +125,8 @@ const Home = props => {
                         </div> */}
 
                         {/* {itemsForSale.length != 0 ? <GroupProduct title="FOR SALE" items={itemsForSale} link="/view" buttonName="View Equipment for Sale" /> : "fffffffffff"} */}
-                        {itemsForSale.length !== 0 ? "aaaaaaaaaaaa" : "fffffffffff"}
+                        {/* {itemsForSale.length !== 0 ? "aaaaaaaaaaaa" : "fffffffffff"} */}
+                        <GroupProduct title="FOR SALE" items={itemsForSale} link="/view" buttonName="View Equipment for Sale" />
                     </>
                     :
                     <>
@@ -137,12 +152,12 @@ const Home = props => {
 
             <div className="repair">
                 <h3>REPAIR / MAINTENANCE</h3>
-                <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" />
+                {/* <Product img="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" name="ABC" serial_number="AKB4" /> */}
                 {/* <Slide group={items5} items={2} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} /> */}
-                {/* <Link to="/listimg" className="item flex">
+                <Link to="/listimg" className="item flex">
                     <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
                     <p>Engine Overhaul</p>
-                </Link> */}
+                </Link>
                 <p>Hove more Questions?</p>
                 <button className="view">Call us</button>
             </div>
