@@ -21,6 +21,18 @@ const Home = props => {
     const [itemsForRent, setItemsForRent] = useState([])
     const [itemsForTransportation, setItemsForTransportation] = useState([])
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
+    const data = [
+        " All Terrain Crane & Hydraulic Truck Crane",
+        "Crawler Tower Crane/Crawler Crane",
+        "Crusher",
+        "Compactor/Roller",
+        "Excavator with Telescopic Dipper",
+        "Excavator with Vibro/Breaker",
+        "Long Arm Excavator & High Reach Boom",
+        "Skid Loader & Boom Lift",
+        "Wheel Loader & Bulldozer "
+    ]
+    const [searhFilter, setSearchFilter] = useState(data)
 
     useEffect(() => {
         dispatch(getProduct())
@@ -87,6 +99,14 @@ const Home = props => {
         <img src="https://cdn.voh.com.vn/voh/Image/2019/06/10/thayloimuonnoibangnhunghinhanhbuonmangdaytamtrang8_20190610221410.jpg" alt="" />,
     ]
 
+    const [a, setA] = useState("")
+
+    const handleSearch = value => {
+        const arraySearch = data.filter(item => item.toUpperCase().includes(value.toUpperCase()))
+        setSearchFilter(arraySearch)
+        setA(value)
+    }
+
     return (
         <div className="home">
             <div className="home-under">
@@ -99,7 +119,12 @@ const Home = props => {
                 </ul>
                 {!props.toggle ?
                     <>
-                        <Search function="sale" />
+                        <Search function="sale" handleSearch={handleSearch} />
+                        {/* {searhFilter.length != 0 ? searhFilter.map(item => <p className="a">{item.toUpperCase().includes(a.toUpperCase())}</p>) : "No item matches your keyword"} */}
+                        {searhFilter.length != 0 ? searhFilter.map(item => <p className="a">
+                            {item}
+                        </p>) : "No item matches your keyword"}
+                        {/* <Product domain="product" id={241} img="https://cdn.tgdd.vn/Files/2019/01/01/1142002/s8high_800x600.jpg" name="dddd" price="nnnnnn" /> */}
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR SALE" items={itemsForSale} link="/view" buttonName="View Equipment for Sale" />
                             : "No equipment for sale"}

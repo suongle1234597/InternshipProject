@@ -25,7 +25,7 @@ const Slide = ({
             items={items}
             autoplay={autoplay}
             autoplayTimeout={autoplayTimeout}>
-            {group.map((item, index) => <div key={index} className="item">{item}</div>)}
+            {group.map((item, index) => item)}
         </OwlCarousel>
     )
 }

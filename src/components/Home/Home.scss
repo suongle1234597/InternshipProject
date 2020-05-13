@@ -8,41 +8,6 @@
             }
         }
     }
-   
-    .forsale, .transportation, .repair{
-        padding: 15px;
-        border-top: 1px solid var(--lightgray);
-        h3{
-            font-weight: 400;
-        }
-        .owl-item{
-            p{
-                position: none;
-            }
-        }
-        .item{
-            position: relative;
-            width: 130px;
-            height: 130px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            img{
-                position: absolute;
-                left: 0;
-                top: 0;
-                z-index: -1;
-                width: 130px;
-                height: 130px;
-                border-radius: 5px;
-            }
-            p{
-                color: var(--white);
-                width: 80%;
-                text-align: center;
-            }
-        }
-    }
 }
 
 .view{
@@ -52,11 +17,9 @@
 }
 
 .home-bottom{
-    padding: 15px;
-
-    .forsale, .repair{
-        padding: 15px;
-        border-top: 1px solid var(--lightgray);
+    padding-top: 15px;
+    .a{
+        color: #FC7521;
     }
     ul{
         padding-inline-start: 0;
@@ -80,29 +43,6 @@
                     border-bottom-right-radius: 0;
                     border-bottom-left-radius: 0;
                     border-bottom: 1.5px solid var(--orange);
-                    color: #FC7521;
-                }
-            }
-        }
-    }
-    .owl-carousel{
-        height: 200px;
-    }
-    .owl-item{
-        height: 200px;
-        .item{
-            height: 100%;
-        }
-        .product{
-            height: 200px;
-
-            p{
-                position: none;
-                top: 0;
-                top: 100px;
-                font-size: 14px;
-                line-height: 25px;
-                &.serial{
                     color: #FC7521;
                 }
             }

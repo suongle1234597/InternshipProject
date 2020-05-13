@@ -7,7 +7,7 @@ const Product = props => {
         <div className="product">
             <Link to={`/${props.domain}/${props.id}`}> <img src={props.img} alt="" /></Link>
             <p className="name">{props.name}</p>
-            <p className="serial">{props.serial_number}</p>
+            <p className="serial">{props.price}</p>
         </div>
     )
 }

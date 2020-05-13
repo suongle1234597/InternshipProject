@@ -1,9 +1,12 @@
-.carousel-inner{
-    .carousel-item{
-        img{
-            width: 300px;
-            height: 300px;
+.owl-carousel {
+    .owl-item{
+        .product{
+            img{
+                width: 140px;
+            }
+            p{
+                line-height: 20px;
+            }
         }
     }
-    
 }

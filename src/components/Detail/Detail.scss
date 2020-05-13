@@ -7,7 +7,7 @@
     .slide{
         .owl-carousel{
             position: relative;
-            .item{
+            .owl-item{
                 img{
                     width: 400px;
                     height: 300px;
@@ -59,7 +59,11 @@
         background: var(--gray-background);
     }
     table{
+        tbody{
+            width: 100%;
+        }
         td{
+            width: 200%;
             i{
                 font-size: 6px;
             }
