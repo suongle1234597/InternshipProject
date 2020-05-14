@@ -1,12 +1,19 @@
-import { GET_PRODUCT_TYPES, GET_LIST_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, GET_LIST_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_AVAILABILITY } from '../action/type'
+import { GET_PRODUCT_TYPES, GET_LIST_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, GET_LIST_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY } from '../action/type'
 
 const initialState = {
     productType: {},
-    listProductType: {},
     brand: {},
-    listBrand: {},
     availability: {},
-    listAvailability: {}
+    dataSearch: {
+        product_type_ids: [],
+        brand_ids: [],
+        status: [],
+        from_use: "",
+        to_use: "",
+        from_year: "",
+        to_year: ""
+    },
+    listSearch: []
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -17,16 +24,16 @@ const searchReducer = (state = initialState, action) => {
                 productType: action.response.data
             }
         }
-        case GET_LIST_PRODUCT_TYPES: {
-            return {
-                ...state,
-                listProductType: action.response
-            }
-        }
         case HANDLE_PRODUCT_TYPES: {
             return {
                 ...state,
-                listProductType: action.response
+                dataSearch: action.response
+            }
+        }
+        case RESET_SELECT_PRODUCT_TYPES: {
+            return {
+                ...state,
+                dataSearch: action.response
             }
         }
         case GET_BRANDS: {
@@ -35,16 +42,16 @@ const searchReducer = (state = initialState, action) => {
                 brand: action.response.data
             }
         }
-        case GET_LIST_BRANDS: {
+        case RESET_SELECT_BRANDS: {
             return {
                 ...state,
-                listBrand: action.response
+                dataSearch: action.response
             }
         }
         case HANDLE_BRANDS: {
             return {
                 ...state,
-                listBrand: action.response
+                dataSearch: action.response
             }
         }
         case GET_AVAILABILITY: {
@@ -53,16 +60,22 @@ const searchReducer = (state = initialState, action) => {
                 availability: action.response
             }
         }
-        case GET_LIST_AVAILABILITY: {
+        case RESET_SELECT_AVAILABILITY: {
             return {
                 ...state,
-                listAvailability: action.response
+                dataSearch: action.response
             }
         }
         case HANDLE_AVAILABILITY: {
             return {
                 ...state,
-                listAvailability: action.response
+                dataSearch: action.response
+            }
+        }
+        case GET_LIST_SEARCH: {
+            return {
+                ...state,
+                listSearch: action.response.data
             }
         }
         default: return state

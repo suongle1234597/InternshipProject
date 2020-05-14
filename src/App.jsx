@@ -14,7 +14,7 @@ import SearchProduct from './components/SearchProduct/SearchProduct'
 import SelectItem from './components/SelectItem/SelectItem'
 import { getProduct } from './action/ProductAction'
 import { useDispatch, useSelector } from 'react-redux'
-import { getListProductType, getListBrands, getListAvailability } from './action/SearchAction'
+import ListProduct from './components/ListProduct/ListProduct'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -27,15 +27,6 @@ const App = () => {
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,",
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
   ]
-
-  useEffect(() => {
-    dispatch(getListProductType())
-    dispatch(getListBrands())
-    dispatch(getListAvailability())
-    return () => {
-      console.log("clean up")
-    }
-  }, [])
 
   const handleClickShowModal = () => {
     setModal(true)
@@ -76,6 +67,7 @@ const App = () => {
             <Route path='/selectProduct' component={SelectItem} />
             <Route path='/selectBrand' component={SelectItem} />
             <Route path='/selectAvailability' component={SelectItem} />
+            <Route path='/listProduct' component={ListProduct} />
           </Router>
         </div>
       </div>

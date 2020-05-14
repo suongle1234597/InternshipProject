@@ -1,30 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductType, getListProductType, selectProductTypes, getBrands, getListBrands, selectBrand, getAvailability, getListAvailability, selectAvailability } from '../../action/SearchAction'
+import { getProductType, selectProductTypes, getBrands, selectBrand, getAvailability, selectAvailability, resetSelectProductType, resetSelectBrands, resetSelectAvailability, getListSearchProduct } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import './SelectItem.scss'
 
 const SelectItem = props => {
   const productType = useSelector(state => state.searchReducer.productType)
-  const listProductType = useSelector(state => state.searchReducer.listProductType)
   const brand = useSelector(state => state.searchReducer.brand)
-  const listBrand = useSelector(state => state.searchReducer.listBrand)
   const availability = useSelector(state => state.searchReducer.availability)
-  const listAvailability = useSelector(state => state.searchReducer.listAvailability)
+  const dataSearch = useSelector(state => state.searchReducer.dataSearch)
   const dispatch = useDispatch()
   const type = props.match.path
 
   useEffect(() => {
     if (type.split('/')[1] === "selectProduct") {
       dispatch(getProductType())
-      // dispatch(getListProductType())
     }
     else if (type.split('/')[1] === "selectBrand") {
       dispatch(getBrands())
-      // dispatch(getListBrands())
     } else {
       dispatch(getAvailability())
-      // dispatch(getListAvailability())
     }
     return () => {
       console.log("clean up")
@@ -33,42 +28,32 @@ const SelectItem = props => {
 
   const handleType = id => {
     if (type.split('/')[1] === "selectProduct") {
-      if (!isEmpty(listProductType)) {
-        dispatch(selectProductTypes(listProductType, id))
-      }
+      dispatch(selectProductTypes(dataSearch, id))
     }
     else if (type.split('/')[1] === "selectBrand") {
-      if (!isEmpty(listBrand)) {
-        dispatch(selectBrand(listBrand, id))
-      }
+      dispatch(selectBrand(dataSearch, id))
     } else {
-      if (!isEmpty(availability)) {
-        dispatch(selectAvailability(listAvailability, id))
-      }
+      dispatch(selectAvailability(dataSearch, id))
     }
   }
 
-  console.log(listProductType)
-
   const handleResetSelection = e => {
     if (type.split('/')[1] === "selectProduct") {
-      if (!isEmpty(productType)) {
-        dispatch(getListProductType())
-      }
+      dispatch(resetSelectProductType(dataSearch))
     }
     else if (type.split('/')[1] === "selectBrand") {
-      if (!isEmpty(brand)) {
-        dispatch(getListBrands())
-      }
+      dispatch(resetSelectBrands(dataSearch))
     } else {
-      if (!isEmpty(availability)) {
-        dispatch(getListAvailability())
-      }
+      dispatch(resetSelectAvailability(dataSearch))
     }
   }
 
   const handleComeBack = () => {
     props.history.push('/searchProduct')
+  }
+
+  const handleSearch = () => {
+    dispatch(getListSearchProduct(props.history, dataSearch))
   }
 
   return (
@@ -81,12 +66,12 @@ const SelectItem = props => {
               Done
      </button>
             <h6>Select Products</h6>
-            <button>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </div>
           {!isEmpty(productType) && productType.map(item =>
             <div className="item flex" key={item.id} name={item.id} onClick={() => handleType(item.id)}>
               <label>{item.name} </label>
-              {!isEmpty(listProductType) && listProductType[item.id] === true ? <i className="fas fa-check"></i> : ""}
+              {!isEmpty(dataSearch.product_type_ids) && dataSearch.product_type_ids.findIndex(element => element === item.id) !== -1 ? <i className="fas fa-check"></i> : ""}
             </div>)}
           <div className="contact">
             <button className="view" onClick={handleResetSelection}>Reset Selection</button>
@@ -106,7 +91,7 @@ const SelectItem = props => {
           {!isEmpty(brand) && brand.map(item =>
             <div className="item flex" key={item.id} name={item.id} onClick={() => handleType(item.id)}>
               <label>{item.name} </label>
-              {!isEmpty(listBrand) && listBrand[item.id] === true ? <i className="fas fa-check"></i> : ""}
+              {!isEmpty(dataSearch.brand_ids) && dataSearch.brand_ids.findIndex(element => element === item.id) !== -1 ? <i className="fas fa-check"></i> : ""}
             </div>)}
           <div className="contact">
             <button className="view" onClick={handleResetSelection}>Reset Selection</button>
@@ -126,7 +111,7 @@ const SelectItem = props => {
           {!isEmpty(availability) && availability.map(item =>
             <div className="item flex" key={item} name={item} onClick={() => handleType(item)}>
               <label>{item} </label>
-              {!isEmpty(availability) && listAvailability[item] === true ? <i className="fas fa-check"></i> : ""}
+              {!isEmpty(dataSearch.status) && dataSearch.status.findIndex(element => element === item) !== -1 ? <i className="fas fa-check"></i> : ""}
             </div>)}
           <div className="contact">
             <button className="view" onClick={handleResetSelection}>Reset Selection</button>

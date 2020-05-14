@@ -151,11 +151,11 @@ const Detail = props => {
                                     </tr>
                                     <tr>
                                         <th scope="row">Status</th>
-                                        {productDetail.status === "available" ?
+                                        {transportationDetail.status === "available" ?
                                             <td className="available">Available <i className="fas fa-circle"></i></td> : <td></td>}
-                                        {productDetail.status === "notavailable" ?
+                                        {transportationDetail.status === "notavailable" ?
                                             <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : <td></td>}
-                                        {productDetail.status === "comingsoon" ?
+                                        {transportationDetail.status === "comingsoon" ?
                                             <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : <td></td>}
                                     </tr>
                                     <tr>
