@@ -82,7 +82,7 @@ const Home = props => {
     //     if (!is_Empty(repairMaintenances)) {
     //         const array4 = []
     //         repairMaintenances.forEach(item => {
-    //             array4.push(<Product img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+    //             array4.push(<><Link to=""><img src={item.images[0].url.original} alt="" /></Link><p>bnbn</p> </>)
     //         });
     //         setItemsForTransportation(array4)
     //     }
@@ -91,7 +91,6 @@ const Home = props => {
     //     }
     // }, [repairMaintenances])
     // console.log(repairMaintenances)
-
 
     const items = [
         <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47b439f636b71f80b6d95e9023c8d70ec2f08b34/3.PNG" alt="" />,

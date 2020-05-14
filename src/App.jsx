@@ -11,10 +11,13 @@ import Request from './components/Request/Request'
 import Info from './components/Info/Info'
 import Settings from './components/Settings/Settings'
 import SearchProduct from './components/SearchProduct/SearchProduct'
+import SelectItem from './components/SelectItem/SelectItem'
 import { getProduct } from './action/ProductAction'
 import { useDispatch, useSelector } from 'react-redux'
+import { getListProductType, getListBrands, getListAvailability } from './action/SearchAction'
 
 const App = () => {
+  const dispatch = useDispatch()
   const [toggle, setToggle] = useState(false)
   const [modal, setModal] = useState(false)
   const aboutUs = ["This mobile application is developed by Huasing Construction & Trading Pte Ltd. We are the authorised dealer for Doosan, Powerscreen and Ammann. We also supply a range of used heavy machinery to our customers."]
@@ -24,6 +27,15 @@ const App = () => {
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,",
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
   ]
+
+  useEffect(() => {
+    dispatch(getListProductType())
+    dispatch(getListBrands())
+    dispatch(getListAvailability())
+    return () => {
+      console.log("clean up")
+    }
+  }, [])
 
   const handleClickShowModal = () => {
     setModal(true)
@@ -60,7 +72,10 @@ const App = () => {
             <Route path='/settings' render={() => <Settings />} />
             <Route path='/aboutUs' render={() => <Info info={aboutUs} func="About Us" />} />
             <Route path='/termsAndConditions' render={() => <Info info={termsAndConditions} func="Terms And Conditions" />} />
-            <Route path='/searchProduct' render={() => <SearchProduct />} />
+            <Route path='/searchProduct' component={SearchProduct} />
+            <Route path='/selectProduct' component={SelectItem} />
+            <Route path='/selectBrand' component={SelectItem} />
+            <Route path='/selectAvailability' component={SelectItem} />
           </Router>
         </div>
       </div>

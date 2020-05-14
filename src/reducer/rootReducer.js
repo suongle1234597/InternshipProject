@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import productReducer from './productReducer'
 import transportationReducer from './transportationReducer'
-import repairMaintenances from './repairMaintenancesReducer'
+import repairMaintenancesReducer from './repairMaintenancesReducer'
+import searchReducer from './searchReducer'
 
 const rootReducer = combineReducers({
     productReducer,
     transportationReducer,
-    repairMaintenances
+    repairMaintenancesReducer,
+    searchReducer
 })
 
 export default rootReducer

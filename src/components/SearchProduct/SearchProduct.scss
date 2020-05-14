@@ -34,4 +34,20 @@
         border-bottom: 1px solid var(--lightgray);
         padding: 15px;
     }
+    .head{
+        justify-content: space-between;
+        position: relative;
+        button{
+            background: none;
+            color: var(--orange);
+            &.done{
+                padding-left: 15px;
+            }
+        }
+        i.fa-chevron-left{
+            position: absolute;
+            left: 0;
+            top: 35%;
+        }
+    }
 }

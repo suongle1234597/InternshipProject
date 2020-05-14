@@ -1,0 +1,24 @@
+.selectProduct.settings{
+    .contact{
+        position: unset;
+    }
+    i.fa-check{
+        color: var(--orange);
+    }
+    .head{
+        justify-content: space-between;
+        position: relative;
+        button{
+            background: none;
+            color: var(--orange);
+            &.done{
+                padding-left: 15px;
+            }
+        }
+        i.fa-chevron-left{
+            position: absolute;
+            left: 0;
+            top: 35%;
+        }
+    }
+}
