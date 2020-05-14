@@ -1,4 +1,4 @@
-import { GET_PRODUCT, GET_PRODUCT_DETAIL } from './type'
+import { GET_PRODUCT, GET_PRODUCT_DETAIL, SORT } from './type'
 import axios from 'axios'
 
 export const getProduct = () => async dispatch => {
@@ -24,5 +24,14 @@ export const getProductDetail = (id) => async dispatch => {
         })
     }).catch(error => {
 
+    })
+}
+
+export const sortProduct = (sort, key) => async dispatch => {
+    await axios.get(`http://huasing.vinova.sg/api/v1/products?sort=${sort}&sort_key=${key}`).then(res_api => {
+        dispatch({
+            type: SORT,
+            response: res_api.data
+        })
     })
 }

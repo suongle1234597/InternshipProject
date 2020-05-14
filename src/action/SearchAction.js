@@ -1,4 +1,9 @@
-import { GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, GET_LIST_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, GET_LIST_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY } from './type'
+import {
+    GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS,
+    HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_SEARCH,
+    RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY, RESET_ALL,
+    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH
+} from './type'
 import axios from 'axios'
 import isEmpty from '../isEmpty'
 
@@ -110,6 +115,29 @@ export const selectAvailability = (data, id) => dispatch => {
     })
 }
 
+export const resetAll = () => dispatch => {
+    let obj = {
+        productType: {},
+        brand: {},
+        availability: {},
+        dataSearch: {
+            product_type_ids: [],
+            brand_ids: [],
+            status: [],
+            from_use: "",
+            to_use: "",
+            from_year: "",
+            to_year: ""
+        },
+        listSearch: []
+    }
+
+    dispatch({
+        type: RESET_ALL,
+        response: obj
+    })
+}
+
 export const getListSearchProduct = (history, data) => async dispatch => {
     dispatch({
         type: CLEAR_ERROR
@@ -128,12 +156,41 @@ export const getListSearchProduct = (history, data) => async dispatch => {
         })
     }
     else {
+        // product_type_ids: [],
+        // brand_ids: [],
+        // status: [],
+        // from_use: "",
+        // to_use: "",
+        // from_year: "",
+        // to_year: ""
+
+        // if()
+
+        // if (data)
         await axios.get("http://huasing.vinova.sg/api/v1/products?page=1", data).then(res_api => {
             dispatch({
                 type: GET_LIST_SEARCH,
                 response: res_api.data
             })
         })
-        history.push('/listProduct')
+        history.push('/productSearchList')
     }
+}
+
+export const getListNameSearch = () => async dispatch => {
+    await axios.get("http://huasing.vinova.sg/api/v1/suggests").then(res_api => {
+        dispatch({
+            type: GET_LIST_NAME_SEARCH,
+            response: res_api.data
+        })
+    })
+}
+
+export const getNameSearch = (value) => async dispatch => {
+    await axios.get(`http://huasing.vinova.sg/api/v1/suggests?q=${value}`).then(res_api => {
+        dispatch({
+            type: GET_NAME_SEARCH,
+            response: res_api.data
+        })
+    })
 }

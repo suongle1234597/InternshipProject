@@ -67,7 +67,8 @@ const App = () => {
             <Route path='/selectProduct' component={SelectItem} />
             <Route path='/selectBrand' component={SelectItem} />
             <Route path='/selectAvailability' component={SelectItem} />
-            <Route path='/listProduct' component={ListProduct} />
+            <Route path='/productSearchList' component={ListProduct} />
+            <Route path='/listOfProduct' component={ListProduct} />
           </Router>
         </div>
       </div>

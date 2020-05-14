@@ -7,20 +7,28 @@ import Slide from '../Slide/Slide'
 import { getProduct } from '../../action/ProductAction'
 import { getTransportation } from '../../action/TransportationAction'
 import { getRepairMaintenances } from '../../action/RepairMaintenancesAction'
+import { getListNameSearch, getNameSearch } from '../../action/SearchAction'
+import { getBanner } from '../../action/BannerAction'
 import { useSelector, useDispatch } from 'react-redux'
 import is_Empty from '../../isEmpty'
 import GroupProduct from '../GroupProduct/GroupProduct'
 
 const Home = props => {
+    const banners = useSelector(state => state.bannerReducer.banners)
     const product = useSelector(state => state.productReducer.product)
     const transportation = useSelector(state => state.transportationReducer.transportation)
     ///?????????????????????
     // const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
+    const listNameSearch = useSelector(state => state.searchReducer.listNameSearch)
     const dispatch = useDispatch()
+    const [itemsForBanner, setItemsForBanner] = useState([])
     const [itemsForSale, setItemsForSale] = useState([])
     const [itemsForRent, setItemsForRent] = useState([])
     const [itemsForTransportation, setItemsForTransportation] = useState([])
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
+    const [searchTerm, setSearchTerm] = useState("")
+
+
     const data = [
         " All Terrain Crane & Hydraulic Truck Crane",
         "Crawler Tower Crane/Crawler Crane",
@@ -32,9 +40,9 @@ const Home = props => {
         "Skid Loader & Boom Lift",
         "Wheel Loader & Bulldozer "
     ]
-    const [searhFilter, setSearchFilter] = useState(data)
 
     useEffect(() => {
+        dispatch(getBanner())
         dispatch(getProduct())
         dispatch(getTransportation())
         dispatch(getRepairMaintenances())
@@ -45,18 +53,31 @@ const Home = props => {
     }, [])
 
     useEffect(() => {
+        if (!is_Empty(banners)) {
+            const array = []
+            banners.forEach(item => {
+                array.push(<img key={item.order} src={item.url.original} alt="" />, )
+            });
+            setItemsForBanner(array)
+        }
+        return () => {
+            console.log("clean up")
+        }
+    }, [banners])
+
+    useEffect(() => {
         if (!is_Empty(product)) {
-            const arr = product.filter(item => item.purpose === "for_sale")
+            const arr = product.data.filter(item => item.purpose === "for_sale")
             const array = []
             arr.forEach(item => {
-                array.push(<Product domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+                array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
             setItemsForSale(array)
 
-            const arr2 = product.filter(item => item.purpose === "for_rent")
+            const arr2 = product.data.filter(item => item.purpose === "for_rent")
             const array2 = []
             arr2.forEach(item => {
-                array2.push(<Product domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+                array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
             setItemsForRent(array2)
         }
@@ -69,7 +90,7 @@ const Home = props => {
         if (!is_Empty(transportation)) {
             const array3 = []
             transportation.forEach(item => {
-                array3.push(<Product domain="service" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+                array3.push(<Product key={item.id} domain="service" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
             setItemsForTransportation(array3)
         }
@@ -98,18 +119,18 @@ const Home = props => {
         <img src="https://cdn.voh.com.vn/voh/Image/2019/06/10/thayloimuonnoibangnhunghinhanhbuonmangdaytamtrang8_20190610221410.jpg" alt="" />,
     ]
 
-    const [a, setA] = useState("")
+    const handleChange = e => {
+        setSearchTerm(e.target.value)
+    }
 
-    const handleSearch = value => {
-        const arraySearch = data.filter(item => item.toUpperCase().includes(value.toUpperCase()))
-        setSearchFilter(arraySearch)
-        setA(value)
+    const handleSearch = () => {
+        dispatch(getNameSearch(searchTerm))
     }
 
     return (
         <div className="home">
             <div className="home-under">
-                <Slide group={items} items={1} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} />
+                <Slide group={itemsForBanner} items={1} dots={false} loop={true} autoplay={true} autoplayTimeout={5000} />
             </div>
             <div className="home-bottom">
                 <ul className="flex">
@@ -118,9 +139,8 @@ const Home = props => {
                 </ul>
                 {!props.toggle ?
                     <>
-                        <Search function="sale" handleSearch={handleSearch} />
-                        {/* {searhFilter.length != 0 ? searhFilter.map(item => <p className="a">{item.toUpperCase().includes(a.toUpperCase())}</p>) : "No item matches your keyword"} */}
-                        {searhFilter.length != 0 ? searhFilter.map(item => <p className="a">
+                        <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
+                        {listNameSearch.length != 0 ? listNameSearch.map(item => <p key={item} className="a">
                             {item}
                         </p>) : "No item matches your keyword"}
                         {/* <Product domain="product" id={241} img="https://cdn.tgdd.vn/Files/2019/01/01/1142002/s8high_800x600.jpg" name="dddd" price="nnnnnn" /> */}

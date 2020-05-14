@@ -11,11 +11,13 @@ const transportationReducer = (state = initialState, action) => {
             console.log(action.response.data.data)
 
             return {
+                ...state,
                 transportation: action.response.data
             }
         }
         case GET_TRANSPORTATION_DETAIL: {
             return {
+                ...state,
                 transportationDetail: action.response.data
             }
         }

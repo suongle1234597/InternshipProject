@@ -1,4 +1,8 @@
-import { GET_PRODUCT_TYPES, GET_LIST_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, GET_LIST_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY } from '../action/type'
+import {
+    GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY,
+    HANDLE_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS,
+    RESET_SELECT_AVAILABILITY, RESET_ALL, GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SORT
+} from '../action/type'
 
 const initialState = {
     productType: {},
@@ -13,7 +17,8 @@ const initialState = {
         from_year: "",
         to_year: ""
     },
-    listSearch: []
+    listSearch: [],
+    listNameSearch: []
 }
 
 const searchReducer = (state = initialState, action) => {
@@ -72,10 +77,34 @@ const searchReducer = (state = initialState, action) => {
                 dataSearch: action.response
             }
         }
+        case RESET_ALL: {
+            return {
+                ...state,
+                dataSearch: action.response
+            }
+        }
         case GET_LIST_SEARCH: {
             return {
                 ...state,
-                listSearch: action.response.data
+                listSearch: action.response
+            }
+        }
+        case GET_NAME_SEARCH: {
+            return {
+                ...state,
+                listNameSearch: action.response.data
+            }
+        }
+        case GET_LIST_NAME_SEARCH: {
+            return {
+                ...state,
+                listNameSearch: action.response.data
+            }
+        }
+        case SORT: {
+            return {
+                ...state,
+                listSearch: action.response
             }
         }
         default: return state

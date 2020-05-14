@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './SearchProduct.scss'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductType, getBrands, getAvailability, getListSearchProduct, resetSelectProductType, resetSelectBrands, resetSelectAvailability } from '../../action/SearchAction'
+import { getProductType, getBrands, getAvailability, getListSearchProduct, resetSelectProductType, resetSelectBrands, resetSelectAvailability, resetAll } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 
 const SearchProduct = props => {
@@ -98,10 +98,20 @@ const SearchProduct = props => {
         })
     }
 
-    const handleResetSelection = e => {
-        dispatch(resetSelectProductType(dataSearch))
-        dispatch(resetSelectBrands(dataSearch))
-        dispatch(resetSelectAvailability(dataSearch))
+    const handleResetSelection = () => {
+        dispatch(resetAll(dataSearch))
+        setItemsForProduct([])
+        setItemsForBrand([])
+        setItemsForAvailability([])
+        setFormData({
+            product_type_ids: [],
+            brand_ids: [],
+            status: [],
+            from_use: "",
+            to_use: "",
+            from_year: "",
+            to_year: ""
+        })
     }
 
     const handleSearch = () => {
