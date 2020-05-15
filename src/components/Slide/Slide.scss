@@ -3,9 +3,34 @@
         .product{
             img{
                 width: 140px;
+                height: 140px;
             }
             p{
                 line-height: 20px;
+            }
+        }
+        .item{
+            position: relative;
+            justify-content: center;
+            align-items: center;
+            width: 140px;
+            height: 140px;
+
+            img {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 140px;
+                height: 140px;
+                border-radius: 5px;
+                z-index: -1;
+            }
+            p{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 22px;
+                color: var(--white);
+                text-align: center;
             }
         }
     }

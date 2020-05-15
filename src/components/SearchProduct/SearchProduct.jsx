@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './SearchProduct.scss'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductType, getBrands, getAvailability, getListSearchProduct, resetSelectProductType, resetSelectBrands, resetSelectAvailability, resetAll } from '../../action/SearchAction'
+import { getProductType, getBrands, getAvailability, getListSearchProduct, resetAll, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 
 const SearchProduct = props => {
@@ -15,27 +15,6 @@ const SearchProduct = props => {
     const [itemsForProduct, setItemsForProduct] = useState([])
     const [itemsForBrand, setItemsForBrand,] = useState([])
     const [itemsForAvailability, setItemsForAvailability] = useState([])
-    const [formData, setFormData] = useState({
-        product_type_ids: [],
-        brand_ids: [],
-        status: [],
-        from_use: "",
-        to_use: "",
-        from_year: "",
-        to_year: ""
-    })
-
-    useEffect(() => {
-        setFormData({
-            ...formData,
-            product_type_ids: dataSearch.product_type_ids,
-            brand_ids: dataSearch.brand_ids,
-            status: dataSearch.status
-        })
-        return () => {
-            console.log("clean up")
-        }
-    }, [dataSearch])
 
     useEffect(() => {
         dispatch(getProductType())
@@ -80,8 +59,8 @@ const SearchProduct = props => {
         if (!isEmpty(availability)) {
             let arr3 = []
             availability.forEach(item => {
-                if (dataSearch.status.findIndex(element => element === item) !== -1) {
-                    arr3.push(item)
+                if (dataSearch.status.findIndex(element => element === item.id) !== -1) {
+                    arr3.push(item.name)
                 }
             });
             setItemsForAvailability(arr3)
@@ -92,10 +71,10 @@ const SearchProduct = props => {
     }, [availability])
 
     const handleChange = e => {
-        setFormData({
-            ...formData,
+        dispatch(setDataSearch({
+            ...dataSearch,
             [e.target.name]: Number(e.target.value)
-        })
+        }))
     }
 
     const handleResetSelection = () => {
@@ -103,19 +82,10 @@ const SearchProduct = props => {
         setItemsForProduct([])
         setItemsForBrand([])
         setItemsForAvailability([])
-        setFormData({
-            product_type_ids: [],
-            brand_ids: [],
-            status: [],
-            from_use: "",
-            to_use: "",
-            from_year: "",
-            to_year: ""
-        })
     }
 
     const handleSearch = () => {
-        dispatch(getListSearchProduct(props.history, formData))
+        dispatch(getListSearchProduct(dataSearch))
     }
 
     return (
@@ -126,7 +96,7 @@ const SearchProduct = props => {
                     Back
                 </button>
                 <h6>Search Products</h6>
-                <button onClick={handleSearch}>Search</button>
+                <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
             </div>
 
             <Link to='/selectProduct'>
@@ -157,12 +127,12 @@ const SearchProduct = props => {
                 Running
                 <div className="running flex">
                     <div className="inputNumber">
-                        <input type="number" value={formData.from_use} onChange={handleChange} name="from_use" />
+                        <input type="number" value={dataSearch.from_use} onChange={handleChange} name="from_use" />
                         <p>hrs</p>
                     </div>
                     <p className="to">-</p>
                     <div className="inputNumber">
-                        <input type="number" value={formData.to_use} onChange={handleChange} name="to_use" />
+                        <input type="number" value={dataSearch.to_use} onChange={handleChange} name="to_use" />
                         <p>hrs</p>
                     </div>
                 </div>
@@ -172,11 +142,11 @@ const SearchProduct = props => {
                 Year
                 <div className="running flex">
                     <div className="inputNumber">
-                        <input type="number" value={formData.from_year} onChange={handleChange} name="from_year" />
+                        <input type="number" value={dataSearch.from_year} onChange={handleChange} name="from_year" />
                     </div>
                     <p className="to">-</p>
                     <div className="inputNumber">
-                        <input type="number" value={formData.to_year} onChange={handleChange} name="to_year" />
+                        <input type="number" value={dataSearch.to_year} onChange={handleChange} name="to_year" />
                     </div>
                 </div>
                 {!isEmpty(errors.year) && <p>{errors.year}</p>}

@@ -13,7 +13,7 @@
 .view{
     width: 100%;
     padding: 15px 0;
-    margin-top: 15px;
+    margin: 15px;
 }
 
 .home-bottom{
@@ -46,6 +46,26 @@
                     color: #FC7521;
                 }
             }
+        }
+    }
+    .listSearch{
+        button{
+            background: none;
+        }
+    }
+}
+
+.repair{
+    text-align: center;
+
+    a{
+        color: var(--orange);
+        &:hover{
+            color: var(--orange);
+        }
+        button{
+            // margin: 15px;
+            padding: 0 -15px;
         }
     }
 }

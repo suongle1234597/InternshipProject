@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getProductType, selectProductTypes, getBrands, selectBrand, getAvailability, selectAvailability, resetSelectProductType, resetSelectBrands, resetSelectAvailability, getListSearchProduct } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import './SelectItem.scss'
@@ -66,7 +67,7 @@ const SelectItem = props => {
               Done
      </button>
             <h6>Select Products</h6>
-            <button onClick={handleSearch}>Search</button>
+            <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>
           {!isEmpty(productType) && productType.map(item =>
             <div className="item flex" key={item.id} name={item.id} onClick={() => handleType(item.id)}>
@@ -86,7 +87,7 @@ const SelectItem = props => {
               Done
      </button>
             <h6>Select Brand</h6>
-            <button>Search</button>
+            <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>
           {!isEmpty(brand) && brand.map(item =>
             <div className="item flex" key={item.id} name={item.id} onClick={() => handleType(item.id)}>
@@ -106,12 +107,12 @@ const SelectItem = props => {
               Done
      </button>
             <h6>Select Availability</h6>
-            <button>Search</button>
+            <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>
           {!isEmpty(availability) && availability.map(item =>
-            <div className="item flex" key={item} name={item} onClick={() => handleType(item)}>
-              <label>{item} </label>
-              {!isEmpty(dataSearch.status) && dataSearch.status.findIndex(element => element === item) !== -1 ? <i className="fas fa-check"></i> : ""}
+            <div className="item flex" key={item.id} name={item.name} onClick={() => handleType(item.id)}>
+              <label>{item.name} </label>
+              {!isEmpty(dataSearch.status) && dataSearch.status.findIndex(element => element === item.id) !== -1 ? <i className="fas fa-check"></i> : ""}
             </div>)}
           <div className="contact">
             <button className="view" onClick={handleResetSelection}>Reset Selection</button>

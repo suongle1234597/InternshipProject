@@ -54,7 +54,8 @@ const App = () => {
         <div className="container">
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
-            <Route path='/listimg' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
+            <Route path='/listService' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
+            <Route path='/listRepair/:id' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
             <Route path='/product/:id' component={Detail} />
             <Route path='/service/:id' component={Detail} />
             <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
@@ -68,6 +69,7 @@ const App = () => {
             <Route path='/selectBrand' component={SelectItem} />
             <Route path='/selectAvailability' component={SelectItem} />
             <Route path='/productSearchList' component={ListProduct} />
+            {/* <Route path='/productSearchKey' component={ListProduct} /> */}
             <Route path='/listOfProduct' component={ListProduct} />
           </Router>
         </div>

@@ -2,7 +2,7 @@ import {
     GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS,
     HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_SEARCH,
     RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY, RESET_ALL,
-    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH
+    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SEARCH_KEY, SET_DATA_SEARCH
 } from './type'
 import axios from 'axios'
 import isEmpty from '../isEmpty'
@@ -84,9 +84,9 @@ export const getAvailability = () => dispatch => {
     dispatch({
         type: GET_AVAILABILITY,
         response: [
-            "Availability",
-            "Not availability",
-            "Coming soon"
+            { id: 0, name: "Availability" },
+            { id: 1, name: "Not availability" },
+            { id: 2, name: "Coming soon" }
         ]
     })
 }
@@ -138,15 +138,22 @@ export const resetAll = () => dispatch => {
     })
 }
 
-export const getListSearchProduct = (history, data) => async dispatch => {
+export const setDataSearch = (data) => async dispatch => {
+    dispatch({
+        type: SET_DATA_SEARCH,
+        response: data
+    })
+}
+
+export const getListSearchProduct = (data) => async dispatch => {
     dispatch({
         type: CLEAR_ERROR
     })
     let errors = {}
-    if ((isEmpty(data.from_use) && !isEmpty(data.to_use)) || (!isEmpty(data.from_use) && isEmpty(data.to_use)) || (!isEmpty(data.from_use) && !isEmpty(data.to_use) && Number(data.from_use) >= Number(data.to_use))) {
+    if ((!isEmpty(data.from_use) && !isEmpty(data.to_use) && Number(data.from_use) >= Number(data.to_use))) {
         errors.running = "Invalid running hours"
     }
-    if ((isEmpty(data.from_year) && !isEmpty(data.to_year)) || ((!isEmpty(data.from_year) && isEmpty(data.to_year))) || (!isEmpty(data.from_year) && !isEmpty(data.to_year) && Number(data.from_year) >= Number(data.to_year))) {
+    if ((!isEmpty(data.from_year) && !isEmpty(data.to_year) && Number(data.from_year) >= Number(data.to_year))) {
         errors.year = "Invalid years"
     }
     if (!isEmpty(errors)) {
@@ -156,24 +163,27 @@ export const getListSearchProduct = (history, data) => async dispatch => {
         })
     }
     else {
-        // product_type_ids: [],
-        // brand_ids: [],
-        // status: [],
-        // from_use: "",
-        // to_use: "",
-        // from_year: "",
-        // to_year: ""
-
-        // if()
-
-        // if (data)
-        await axios.get("http://huasing.vinova.sg/api/v1/products?page=1", data).then(res_api => {
+        await axios.get("http://huasing.vinova.sg/api/v1/products?", {
+            params: {
+                search_key: data.search_key,
+                from_use: data.from_use,
+                to_use: data.to_use,
+                from_year: data.from_year,
+                to_year: data.to_year
+            },
+            body: {
+                product_type_ids: data.product_type_ids,
+                brand_ids: data.brand_ids,
+                status: data.status
+            }
+        }).then(res_api => {
             dispatch({
                 type: GET_LIST_SEARCH,
                 response: res_api.data
             })
         })
-        history.push('/productSearchList')
+        // history.push('/productSearchList')
+        // window.location.href = '/productSearchList'
     }
 }
 
@@ -193,4 +203,14 @@ export const getNameSearch = (value) => async dispatch => {
             response: res_api.data
         })
     })
+}
+
+export const searchKey = (value) => async dispatch => {
+    await axios.get(`http://huasing.vinova.sg/api/v1/products?search_key=${value}`).then(res_api => {
+        dispatch({
+            type: SEARCH_KEY,
+            response: res_api.data
+        })
+    })
+    document.location.href = '/productSearchList'
 }

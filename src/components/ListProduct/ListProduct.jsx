@@ -21,9 +21,11 @@ const ListProduct = props => {
     const [toggle, setToggle] = useState(false)
     const type = props.match.path
 
+    console.log(dataSearch)
+
     useEffect(() => {
         if (type.split('/')[1] === "productSearchList") {
-            dispatch(getListSearchProduct(props.history, dataSearch))
+            dispatch(getListSearchProduct(dataSearch))
         }
         else {
             dispatch(getProduct())

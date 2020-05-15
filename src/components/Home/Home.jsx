@@ -4,10 +4,11 @@ import Search from '../Search/Search'
 import Product from '../Product/Product'
 import { Link } from 'react-router-dom'
 import Slide from '../Slide/Slide'
+import Button from '../Button/Button'
 import { getProduct } from '../../action/ProductAction'
 import { getTransportation } from '../../action/TransportationAction'
 import { getRepairMaintenances } from '../../action/RepairMaintenancesAction'
-import { getListNameSearch, getNameSearch } from '../../action/SearchAction'
+import { getListNameSearch, getNameSearch, getListSearchProduct, setDataSearch } from '../../action/SearchAction'
 import { getBanner } from '../../action/BannerAction'
 import { useSelector, useDispatch } from 'react-redux'
 import is_Empty from '../../isEmpty'
@@ -17,9 +18,9 @@ const Home = props => {
     const banners = useSelector(state => state.bannerReducer.banners)
     const product = useSelector(state => state.productReducer.product)
     const transportation = useSelector(state => state.transportationReducer.transportation)
-    ///?????????????????????
-    // const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
+    const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
     const listNameSearch = useSelector(state => state.searchReducer.listNameSearch)
+    const dataSearch = useSelector(state => state.searchReducer.dataSearch)
     const dispatch = useDispatch()
     const [itemsForBanner, setItemsForBanner] = useState([])
     const [itemsForSale, setItemsForSale] = useState([])
@@ -27,7 +28,6 @@ const Home = props => {
     const [itemsForTransportation, setItemsForTransportation] = useState([])
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
-
 
     const data = [
         " All Terrain Crane & Hydraulic Truck Crane",
@@ -90,7 +90,7 @@ const Home = props => {
         if (!is_Empty(transportation)) {
             const array3 = []
             transportation.forEach(item => {
-                array3.push(<Product key={item.id} domain="service" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+                array3.push(<Product key={item.id} domain="service" id={item.id} img={item.images[0].url.original} name={item.transportation_type} price={item.weight} />, )
             });
             setItemsForTransportation(array3)
         }
@@ -99,25 +99,18 @@ const Home = props => {
         }
     }, [transportation])
 
-    // useEffect(() => {
-    //     if (!is_Empty(repairMaintenances)) {
-    //         const array4 = []
-    //         repairMaintenances.forEach(item => {
-    //             array4.push(<><Link to=""><img src={item.images[0].url.original} alt="" /></Link><p>bnbn</p> </>)
-    //         });
-    //         setItemsForTransportation(array4)
-    //     }
-    //     return () => {
-    //         console.log("clean up")
-    //     }
-    // }, [repairMaintenances])
-    // console.log(repairMaintenances)
-
-    const items = [
-        <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBdWdDIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--47b439f636b71f80b6d95e9023c8d70ec2f08b34/3.PNG" alt="" />,
-        <img src="https://cdn.tgdd.vn/Files/2019/01/01/1142002/s8high_800x600.jpg" alt="" />,
-        <img src="https://cdn.voh.com.vn/voh/Image/2019/06/10/thayloimuonnoibangnhunghinhanhbuonmangdaytamtrang8_20190610221410.jpg" alt="" />,
-    ]
+    useEffect(() => {
+        if (!is_Empty(repairMaintenances)) {
+            const array4 = []
+            repairMaintenances.forEach(item => {
+                array4.push(<Link to={`/listRepair/${item.id}`} key={item.id}><div className="item flex" ><img src={item.images[0].url.original} alt="" /><p>{item.name}</p> </div></Link>)
+            });
+            setItemsForRepairMaintenances(array4)
+        }
+        return () => {
+            console.log("clean up")
+        }
+    }, [repairMaintenances])
 
     const handleChange = e => {
         setSearchTerm(e.target.value)
@@ -126,6 +119,17 @@ const Home = props => {
     const handleSearch = () => {
         dispatch(getNameSearch(searchTerm))
     }
+
+    const handleSearchForKey = value => {
+        dispatch(setDataSearch({
+            ...dataSearch,
+            search_key: value
+        }))
+        dispatch(getListSearchProduct(dataSearch))
+    }
+
+    console.log(dataSearch)
+
 
     return (
         <div className="home">
@@ -140,19 +144,25 @@ const Home = props => {
                 {!props.toggle ?
                     <>
                         <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
-                        {listNameSearch.length != 0 ? listNameSearch.map(item => <p key={item} className="a">
-                            {item}
-                        </p>) : "No item matches your keyword"}
-                        {/* <Product domain="product" id={241} img="https://cdn.tgdd.vn/Files/2019/01/01/1142002/s8high_800x600.jpg" name="dddd" price="nnnnnn" /> */}
+                        <div className="listSearch">
+                            {listNameSearch.length != 0 ? listNameSearch.map(item =>
+                                <>
+                                    <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                                    <br />
+                                </>)
+                                :
+                                "No item matches your keyword"}
+                        </div>
+
                         {itemsForSale.length != 0 ?
-                            <GroupProduct title="FOR SALE" items={itemsForSale} link="/view" buttonName="View Equipment for Sale" />
+                            <GroupProduct title="FOR SALE" items={itemsForSale} link="/listOfProduct" buttonName="View Equipment for Sale" />
                             : "No equipment for sale"}
                     </>
                     :
                     <>
                         <Search function="rental" />
                         {itemsForSale.length != 0 ?
-                            <GroupProduct title="FOR RENT" items={itemsForRent} link="/view" buttonName="View Equipment for Rent" />
+                            <GroupProduct title="FOR RENT" items={itemsForRent} link="/listOfProduct" buttonName="View Equipment for Rent" />
                             : "No equipment for rent"}
                     </>
                 }
@@ -160,16 +170,16 @@ const Home = props => {
 
             <div className="transportation">
                 {itemsForTransportation.length != 0 ?
-                    <GroupProduct title="TRANSPORTATION SERVICE" items={itemsForTransportation} link="/view" buttonName="View Transportation Service" />
+                    <GroupProduct title="TRANSPORTATION SERVICE" items={itemsForTransportation} link="/listService" buttonName="View Transportation Service" />
                     : ""}
             </div>
 
             <div className="repair">
                 {itemsForRepairMaintenances.length != 0 ?
-                    <GroupProduct title="REPAIR / MAINTENANCE" items={itemsForRepairMaintenances} link="/view" buttonName="Call us" />
+                    <GroupProduct title="REPAIR / MAINTENANCE" items={itemsForRepairMaintenances} />
                     : ""}
-                {/* <p>Hove more Questions?</p>
-                <button className="view">Call us</button> */}
+                <Link to="/">Hove more Questions?</Link>
+                <Button className="view" link="/" name="Call us" />
             </div>
         </div>
     )

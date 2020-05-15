@@ -16,7 +16,7 @@ const Search = props => {
 
     return (
         <form onSubmit={handleSubmit} className="search flex container">
-            <button onClick={props.handleSearch()}><i className="fas fa-search"></i></button>
+            <button onClick={props.handleSearch}><i className="fas fa-search"></i></button>
             <input type="text" placeholder={`Search equipments for ${props.function}`} value={props.searchTerm} onChange={props.handleChange} />
         </form>
     )

@@ -1,8 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './ListImg.scss'
 import Modal from '../Modal/Modal'
+import is_Empty from '../../isEmpty'
 
 const ListImg = props => {
+    // const dispatch = useDispatch()
+
+    const type = props.match.path
+    const id = props.match.params.id
+
+    // useEffect(() => {
+    //     if (type.split('/')[1] === "listRepair") {
+    //         dispatch(getProductDetail(id))
+    //     }
+    //     else {
+    //         dispatch(getTransportationDetail(id))
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [])
 
     return (
         <div className="listimg">
