@@ -99,34 +99,34 @@ const ListProduct = props => {
             <div className="listProduct-under flex">
                 <p>{total !== 0 && total}</p>
                 <div className="sort">
-                    Latest
+                    {/* Latest
                     <i className="fas fa-chevron-down"></i>
                     <div className="dropdown">
-                        {/* <ul>
+                        <ul>
                             <li><button>Latest </button></li>
                             <li><button>Year <i className="fas fa-long-arrow-alt-down"></i></button></li>
                             <li><button>Year <i className="fas fa-long-arrow-alt-up"></i></button></li>
                             <li><button>Running Hours <i className="fas fa-long-arrow-alt-down"></i></button></li>
                             <li><button>Running Hours <i className="fas fa-long-arrow-alt-up"></i></button></li>
-                        </ul> */}
+                        </ul>
+                    </div> */}
 
-                        <select name="sort" id="" value={dataSort} onChange={handleChange} >
-                            <option value="1">Latest</option>
-                            <option value="2">Year giam </option>
-                            <option value="3">Year</option>
-                            <option value="4">Running Hours giam</option>
-                            <option value="5">Running Hours </option>
-                        </select>
-                    </div>
+                    <select name="sort" id="" value={dataSort} onChange={handleChange} className="select">
+                        <option value="1">Latest</option>
+                        <option value="2">Year giam </option>
+                        <option value="3">Year</option>
+                        <option value="4">Running Hours giam</option>
+                        <option value="5">Running Hours </option>
+                    </select>
                 </div>
             </div>
-            {!toggle ? <>
+            {!toggle ? <div className="showProduct">
                 Purchase
                 {!isEmpty(itemsForSale) ? itemsForSale.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
-            </> :
-                <>Rent
+            </div> :
+                <div className="showProduct">Rent
             {!isEmpty(itemsForRent) ? itemsForRent.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
-                </>}
+                </div>}
         </div>
     )
 }

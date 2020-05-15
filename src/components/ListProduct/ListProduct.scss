@@ -1,0 +1,25 @@
+.listProduct{
+    .listProduct-under{
+        justify-content: space-between;
+        select{
+            border: none;
+            width: 80px;
+            -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;       /* Remove default arrow */
+//    background-image: url(...); 
+            color: var(--orange);
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+    .product{
+        width: 140px;
+        height: 180px;
+        display: inline-block;
+    }
+    .showProduct{
+        // flex-wrap: wrap;
+    }
+}

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import './Search.scss'
 
 const Search = props => {
-
     useEffect(() => {
         props.handleSearch()
         return () => {
