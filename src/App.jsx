@@ -28,6 +28,14 @@ const App = () => {
     "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, tota"
   ]
 
+  const [optionsModal, setOptionsModal] = useState([])
+
+  // [
+  //   <img src="https://i.pinimg.com/originals/0e/1e/8a/0e1e8ace2d78fe052f607aae724720e7.jpg" alt="" />,
+  //   <img src="https://i.pinimg.com/originals/9a/7a/6f/9a7a6f2b9c7b8433e7c947fb38d4f067.jpg" alt="" />,
+  //   <img src="https://hpconnect.vn/wp-content/uploads/2019/09/dich-vu-ghep-anh-chuyen-nghiep-hpconnect-2.jpg" alt="" />
+  // ]
+
   const handleClickShowModal = () => {
     setModal(true)
   }
@@ -54,10 +62,10 @@ const App = () => {
         <div className="container">
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
-            <Route path='/listService' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
-            <Route path='/listRepair/:id' render={() => <ListImg handleClickShowModal={handleClickShowModal} />} />
-            <Route path='/product/:id' component={Detail} />
-            <Route path='/service/:id' component={Detail} />
+            <Route path='/listService' render={() => <ListImg handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/listRepair/:id' render={() => <ListImg handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/product/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/service/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
             <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
             <Route path='/requestproduct/:id' component={Request} />
             <Route path='/requestservice/:id' component={Request} />
@@ -69,12 +77,12 @@ const App = () => {
             <Route path='/selectBrand' component={SelectItem} />
             <Route path='/selectAvailability' component={SelectItem} />
             <Route path='/productSearchList' component={ListProduct} />
-            {/* <Route path='/productSearchKey' component={ListProduct} /> */}
+            <Route path='/search' component={ListProduct} />
             <Route path='/listOfProduct' component={ListProduct} />
           </Router>
         </div>
       </div>
-      {modal === true ? <Modal handleClickCloseModal={handleClickCloseModal} /> : ""}
+      {modal === true ? <Modal handleClickCloseModal={handleClickCloseModal} optionsModal={optionsModal} /> : ""}
     </>
   );
 }

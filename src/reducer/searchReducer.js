@@ -1,7 +1,7 @@
 import {
     GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY,
     HANDLE_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS,
-    RESET_SELECT_AVAILABILITY, RESET_ALL, GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SORT, SEARCH_KEY, SET_DATA_SEARCH
+    RESET_SELECT_AVAILABILITY, RESET_ALL, GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SORT, SET_DATA_SEARCH
 } from '../action/type'
 
 const initialState = {
@@ -103,12 +103,6 @@ const searchReducer = (state = initialState, action) => {
             }
         }
         case SORT: {
-            return {
-                ...state,
-                listSearch: action.response
-            }
-        }
-        case SEARCH_KEY: {
             return {
                 ...state,
                 listSearch: action.response

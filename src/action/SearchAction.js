@@ -2,7 +2,7 @@ import {
     GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS,
     HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_SEARCH,
     RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY, RESET_ALL,
-    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SEARCH_KEY, SET_DATA_SEARCH
+    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH
 } from './type'
 import axios from 'axios'
 import isEmpty from '../isEmpty'
@@ -203,14 +203,4 @@ export const getNameSearch = (value) => async dispatch => {
             response: res_api.data
         })
     })
-}
-
-export const searchKey = (value) => async dispatch => {
-    await axios.get(`http://huasing.vinova.sg/api/v1/products?search_key=${value}`).then(res_api => {
-        dispatch({
-            type: SEARCH_KEY,
-            response: res_api.data
-        })
-    })
-    document.location.href = '/productSearchList'
 }

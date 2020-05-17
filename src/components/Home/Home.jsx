@@ -29,6 +29,8 @@ const Home = props => {
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
 
+    const [flag, setFlag] = useState(false)
+
     const data = [
         " All Terrain Crane & Hydraulic Truck Crane",
         "Crawler Tower Crane/Crawler Crane",
@@ -53,8 +55,15 @@ const Home = props => {
     }, [])
 
     useEffect(() => {
+        handleSearch()
+        return () => {
+            console.log("clean up")
+        }
+    }, [searchTerm])
+
+    useEffect(() => {
         if (!is_Empty(banners)) {
-            const array = []
+            var array = []
             banners.forEach(item => {
                 array.push(<img key={item.order} src={item.url.original} alt="" />, )
             });
@@ -67,15 +76,15 @@ const Home = props => {
 
     useEffect(() => {
         if (!is_Empty(product)) {
-            const arr = product.data.filter(item => item.purpose === "for_sale")
-            const array = []
+            var arr = product.data.filter(item => item.purpose === "for_sale")
+            var array = []
             arr.forEach(item => {
                 array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
             setItemsForSale(array)
 
-            const arr2 = product.data.filter(item => item.purpose === "for_rent")
-            const array2 = []
+            var arr2 = product.data.filter(item => item.purpose === "for_rent")
+            var array2 = []
             arr2.forEach(item => {
                 array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
@@ -88,8 +97,8 @@ const Home = props => {
 
     useEffect(() => {
         if (!is_Empty(transportation)) {
-            const array3 = []
-            transportation.forEach(item => {
+            var array3 = []
+            transportation.data.forEach(item => {
                 array3.push(<Product key={item.id} domain="service" id={item.id} img={item.images[0].url.original} name={item.transportation_type} price={item.weight} />, )
             });
             setItemsForTransportation(array3)
@@ -101,7 +110,7 @@ const Home = props => {
 
     useEffect(() => {
         if (!is_Empty(repairMaintenances)) {
-            const array4 = []
+            var array4 = []
             repairMaintenances.forEach(item => {
                 array4.push(<Link to={`/listRepair/${item.id}`} key={item.id}><div className="item flex" ><img src={item.images[0].url.original} alt="" /><p>{item.name}</p> </div></Link>)
             });
@@ -128,8 +137,12 @@ const Home = props => {
         dispatch(getListSearchProduct(dataSearch))
     }
 
-    console.log(dataSearch)
+    // console.log(dataSearch)
 
+    const handleClickSearch = () => {
+        dispatch(getListNameSearch())
+        setFlag(true)
+    }
 
     return (
         <div className="home">
@@ -143,24 +156,62 @@ const Home = props => {
                 </ul>
                 {!props.toggle ?
                     <>
-                        <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
-                        <div className="listSearch">
-                            {listNameSearch.length != 0 ? listNameSearch.map(item =>
-                                <>
-                                    <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
-                                    <br />
-                                </>)
-                                :
-                                "No item matches your keyword"}
-                        </div>
-
+                        <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} handleClickSearch={handleClickSearch} />
+                        {flag ?
+                            <table class="listSearch table table-striped">
+                                <tbody>
+                                    {listNameSearch.length != 0 ? listNameSearch.map(item =>
+                                        <tr>
+                                            <td>
+                                                <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                                                <br />
+                                            </td>
+                                        </tr>)
+                                        :
+                                        "No item matches your keyword"}
+                                </tbody>
+                            </table>
+                            // <div className="listSearch">
+                            //     {listNameSearch.length != 0 ? listNameSearch.map(item =>
+                            //         <>
+                            //             <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                            //             <br />
+                            //         </>)
+                            //         :
+                            //         "No item matches your keyword"}
+                            // </div>
+                            : ""}
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR SALE" items={itemsForSale} link="/listOfProduct" buttonName="View Equipment for Sale" />
                             : "No equipment for sale"}
                     </>
                     :
                     <>
-                        <Search function="rental" />
+                        <Search function="rental" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
+                        {flag ?
+                            <table class="listSearch table table-striped">
+                                <tbody>
+                                    {listNameSearch.length != 0 ? listNameSearch.map(item =>
+                                        <tr>
+                                            <td>
+                                                <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                                                <br />
+                                            </td>
+                                        </tr>)
+                                        :
+                                        "No item matches your keyword"}
+                                </tbody>
+                            </table>
+                            // <div className="listSearch">
+                            //     {listNameSearch.length != 0 ? listNameSearch.map(item =>
+                            //         <>
+                            //             <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                            //             <br />
+                            //         </>)
+                            //         :
+                            //         "No item matches your keyword"}
+                            // </div>
+                            : ""}
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR RENT" items={itemsForRent} link="/listOfProduct" buttonName="View Equipment for Rent" />
                             : "No equipment for rent"}
@@ -178,8 +229,11 @@ const Home = props => {
                 {itemsForRepairMaintenances.length != 0 ?
                     <GroupProduct title="REPAIR / MAINTENANCE" items={itemsForRepairMaintenances} />
                     : ""}
-                <Link to="/">Hove more Questions?</Link>
-                <Button className="view" link="/" name="Call us" />
+
+                <div className="footer">
+                    <Link to="/">Hove more Questions?</Link>
+                    <Button className="view" link="/" name="Call us" />
+                </div>
             </div>
         </div>
     )

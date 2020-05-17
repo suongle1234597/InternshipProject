@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './ListProduct.scss'
+import '../../reset.scss'
 import Header from '../Header/Header'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { getListSearchProduct } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import Product from '../Product/Product'
+import Button from '../Button/Button'
 import { getProduct, sortProduct } from '../../action/ProductAction';
 
 const ListProduct = props => {
@@ -17,14 +20,13 @@ const ListProduct = props => {
     const [itemsForSale, setItemsForSale] = useState([])
     const [itemsForRent, setItemsForRent] = useState([])
     const [dataSort, setDataSort] = useState(1)
-    const [total, setTotal] = useState(0)
     const [toggle, setToggle] = useState(false)
     const type = props.match.path
 
-    console.log(dataSearch)
+    // console.log(dataSearch)
 
     useEffect(() => {
-        if (type.split('/')[1] === "productSearchList") {
+        if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
             dispatch(getListSearchProduct(dataSearch))
         }
         else {
@@ -39,7 +41,6 @@ const ListProduct = props => {
         if (!isEmpty(listSearch.data)) {
             setItemsForSale(listSearch.data.filter(item => item.purpose === "for_sale"))
             setItemsForRent(listSearch.data.filter(item => item.purpose === "for_rent"))
-            setTotal(listSearch.metadata.total_count)
         }
         return () => {
             console.log("clean up")
@@ -50,7 +51,6 @@ const ListProduct = props => {
         if (!isEmpty(product.data)) {
             setItemsForSale(product.data.filter(item => item.purpose === "for_sale"))
             setItemsForRent(product.data.filter(item => item.purpose === "for_rent"))
-            setTotal(product.metadata.total_count)
         }
         return () => {
             console.log("clean up")
@@ -95,40 +95,50 @@ const ListProduct = props => {
         }
     }
 
+    const handleClickBack = () => {
+        if (type.split('/')[1] === "listOfProduct" || type.split('/')[1] === "search") {
+            props.history.push('/')
+        }
+        else {
+            props.history.push('/searchProduct')
+        }
+    }
+
     return (
         <div className="listProduct">
+            <div className="head flex">
+                <button className="done flex" onClick={handleClickBack}>
+                    <i className="fas fa-chevron-left"></i>
+                    Back
+                </button>
+            </div>
             <Header toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />
             <div className="listProduct-under flex">
-                <p>{total !== 0 && total}</p>
+                {!toggle ?
+                    <p>{itemsForSale.length !== 0 && itemsForSale.length} Results</p>
+                    :
+                    <p>{itemsForRent.length !== 0 && itemsForRent.length} Results</p>}
                 <div className="sort">
-                    {/* Latest
-                    <i className="fas fa-chevron-down"></i>
-                    <div className="dropdown">
-                        <ul>
-                            <li><button>Latest </button></li>
-                            <li><button>Year <i className="fas fa-long-arrow-alt-down"></i></button></li>
-                            <li><button>Year <i className="fas fa-long-arrow-alt-up"></i></button></li>
-                            <li><button>Running Hours <i className="fas fa-long-arrow-alt-down"></i></button></li>
-                            <li><button>Running Hours <i className="fas fa-long-arrow-alt-up"></i></button></li>
-                        </ul>
-                    </div> */}
-
                     <select name="sort" id="" value={dataSort} onChange={handleChange} className="select">
-                        <option value="1">Latest</option>
-                        <option value="2">Year giam </option>
-                        <option value="3">Year</option>
-                        <option value="4">Running Hours giam</option>
-                        <option value="5">Running Hours </option>
+                        <option value="1">Latest ˅</option>
+                        <option value="2">Year ↓</option>
+                        <option value="3">Year ↑</option>
+                        <option value="4">Running Hours ↓</option>
+                        <option value="5">Running Hours ↑</option>
                     </select>
                 </div>
             </div>
-            {!toggle ? <div className="showProduct">
-                Purchase
-                {!isEmpty(itemsForSale) ? itemsForSale.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
-            </div> :
-                <div className="showProduct">Rent
-            {!isEmpty(itemsForRent) ? itemsForRent.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
+            {!toggle ?
+                <div className="showProduct flex">
+                    {!isEmpty(itemsForSale) ? itemsForSale.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
+                </div> :
+                <div className="showProduct flex">
+                    {!isEmpty(itemsForRent) ? itemsForRent.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
                 </div>}
+            <div className="footer">
+                <Link to="/">Hove more Questions?</Link>
+                <Button className="view" link="/" name="Call us" />
+            </div>
         </div>
     )
 }

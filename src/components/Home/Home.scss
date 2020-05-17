@@ -17,10 +17,9 @@
 }
 
 .home-bottom{
+    position: relative;
     padding-top: 15px;
-    .a{
-        color: #FC7521;
-    }
+   
     ul{
         padding-inline-start: 0;
         justify-content: space-between;
@@ -49,8 +48,14 @@
         }
     }
     .listSearch{
+        position: absolute;
+        left: 0;
+        top: 21%;
+        background: var(--white);
+        z-index: 99;
         button{
             background: none;
+            color: black;
         }
     }
 }
@@ -58,14 +63,15 @@
 .repair{
     text-align: center;
 
-    a{
-        color: var(--orange);
-        &:hover{
-            color: var(--orange);
-        }
-        button{
-            // margin: 15px;
-            padding: 0 -15px;
+    .footer{
+        a{
+            color: var(--gray-question);
+            &:hover{
+                color: var(--gray-question);
+            }
+            button{
+                padding: 0 -15px;
+            }
         }
     }
 }

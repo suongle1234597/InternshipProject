@@ -1,11 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './Settings.scss'
+import Button from '../Button/Button'
 
 const Settings = () => {
     return (
         <div className="settings">
-            <h6>Settings</h6>
+            <div className="head flex" >
+                <Link to='/'>
+                    <button className="done flex" >
+                        <i className="fas fa-chevron-left"></i>
+                        Back
+                </button>
+                </Link>
+
+                <h6>Settings</h6>
+            </div>
+
             <Link to='/aboutUs'>
                 <div className="item flex">
                     About us
@@ -35,9 +46,9 @@ const Settings = () => {
                     Logout
             </div>
             </Link>
-            <div className="contact">
-                <p>Hove more Questions?</p>
-                <button className="view">Call us</button>
+            <div className="footer">
+                <Link to="/">Hove more Questions?</Link>
+                <Button className="view" link="/" name="Call us" />
             </div>
         </div>
     )

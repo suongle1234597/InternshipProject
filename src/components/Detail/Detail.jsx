@@ -53,18 +53,39 @@ const Detail = props => {
         }
     }, [productDetail])
 
+    const handleClickImage = (items) => {
+        props.setOptionsModal(items)
+        props.handleClickShowModal()
+    }
+
+    const handleComeBack = () => {
+        if (type.split('/')[1] === "product") {
+            props.history.push('/listOfProduct')
+        }
+        else {
+            props.history.push('/listService')
+        }
+    }
+
     return (
         <>
             {type.split('/')[1] === "product" ?
                 <div className="detail">
-                    <h6>Product Detail</h6>
+                    <div className="head flex">
+                        <button className="done flex" onClick={handleComeBack}>
+                            <i className="fas fa-chevron-left"></i>
+                            Back
+                        </button>
+                        <h6>Product Detail</h6>
+                        <Link to="/"><button >Call us</button></Link>
+                    </div>
                     {!is_Empty(productDetail) ?
                         <>
-                            <div className="slide">
-                                {items.length != 0 ?
+                            {items.length != 0 ?
+                                <div className="slide" onClick={() => handleClickImage(items)}>
                                     <Slide group={items} items={1} dots={true} loop={true} autoplay={true} autoplayTimeout={5000} />
-                                    : ""}
-                            </div>
+                                </div>
+                                : ""}
 
                             <table className="table table-striped">
                                 <tbody>
@@ -100,11 +121,11 @@ const Detail = props => {
                                     <tr>
                                         <th scope="row">Status:</th>
                                         {productDetail.status === "available" ?
-                                            <td className="available">Available <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="available">Available <i className="fas fa-circle"></i></td> : ""}
                                         {productDetail.status === "notavailable" ?
-                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : ""}
                                         {productDetail.status === "comingsoon" ?
-                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : ""}
                                     </tr>
                                     <tr>
                                         <th scope="row">Catalog:</th>
@@ -126,7 +147,14 @@ const Detail = props => {
                 </div>
                 :
                 <div className="detail">
-                    <h6>Service Detail</h6>
+                    <div className="head flex">
+                        <button className="done flex" onClick={handleComeBack}>
+                            <i className="fas fa-chevron-left"></i>
+                            Back
+                        </button>
+                        <h6>Service Detail</h6>
+                        <Link to="/"><button >Call us</button></Link>
+                    </div>
                     {!is_Empty(transportationDetail) ?
                         <>
                             <div className="slide">
@@ -152,11 +180,11 @@ const Detail = props => {
                                     <tr>
                                         <th scope="row">Status</th>
                                         {transportationDetail.status === "available" ?
-                                            <td className="available">Available <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="available">Available <i className="fas fa-circle"></i></td> : ""}
                                         {transportationDetail.status === "notavailable" ?
-                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : ""}
                                         {transportationDetail.status === "comingsoon" ?
-                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : <td></td>}
+                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : ""}
                                     </tr>
                                     <tr>
                                         <th>Remarks</th>

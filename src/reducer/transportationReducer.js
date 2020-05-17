@@ -8,11 +8,9 @@ const initialState = {
 const transportationReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_TRANSPORTATION: {
-            console.log(action.response.data.data)
-
             return {
                 ...state,
-                transportation: action.response.data
+                transportation: action.response
             }
         }
         case GET_TRANSPORTATION_DETAIL: {

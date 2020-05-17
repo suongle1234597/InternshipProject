@@ -1,51 +1,113 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './ListImg.scss'
 import Modal from '../Modal/Modal'
+import Product from '../Product/Product'
+import { Link } from 'react-router-dom'
 import is_Empty from '../../isEmpty'
+import Button from '../Button/Button'
+import { getTransportation } from '../../action/TransportationAction'
+import { getRepairMaintenances } from '../../action/RepairMaintenancesAction'
 
 const ListImg = props => {
+    // const transportation = useSelector(state => state.transportationReducer.transportation)
+    // const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
     // const dispatch = useDispatch()
-
-    const type = props.match.path
-    const id = props.match.params.id
+    // const type = props.match.path
+    // const id = props.match.params.id
+    const [itemsForTransportation, setItemsForTransportation] = useState([])
 
     // useEffect(() => {
-    //     if (type.split('/')[1] === "listRepair") {
-    //         dispatch(getProductDetail(id))
+    //     if (type.split('/')[1] === "listService") {
+    //         dispatch(getTransportation())
     //     }
     //     else {
-    //         dispatch(getTransportationDetail(id))
+    //         dispatch(getRepairMaintenances())
     //     }
     //     return () => {
     //         console.log("clean up")
     //     }
     // }, [])
 
+    // useEffect(() => {
+    //     if (!is_Empty(repairMaintenances)) {
+    //         var array = []
+    //         repairMaintenances.forEach(item => {
+    //             if (item.id === id) {
+    //                 item.images.forEach(image => {
+    //                     array.push(image.url.original)
+    //                 });
+    //                 setItemsForTransportation(array)
+    //             }
+    //             return
+    //         });
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [repairMaintenances])
+
+    const handleClickImage = (item) => {
+        props.setOptionsModal([<img src={item} alt="" />])
+        props.handleClickShowModal()
+    }
+
     return (
-        <div className="listimg">
-            <h4>Engine Overhaul</h4>
-            <p>4 Pictures</p>
-            <div className="listimg-body flex">
-                <div onClick={props.handleClickShowModal} className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+        <>
+            {/* {type.split('/')[1] === "listService" ?
+                <div className="listProduct listimg">
+                    <div className="head flex">
+                        <button className="done flex" >
+                            <i className="fas fa-chevron-left"></i>
+                            Back
+             </button>
+                        <h6>Services</h6>
+                    </div>
+                    <div className="listProduct-under flex">
+                        <p>{transportation.metadata.total_count !== 0 && transportation.metadata.total_count} Results</p>
+                    </div>
+
+                    <div className="showProduct flex">
+                        {!isEmpty(transportation.data) ? transportation.data.map(item => <Product key={item.id} domain="service" id={item.id} img={item.images[0].url.original} name={item.transportation_type} price={item.weight} />) : "No equipment for rent"}
+                        <Product key={1} domain="service" id={1} img="https://1.bp.blogspot.com/-a-GO0cVmnuE/XcWkLlMcWrI/AAAAAAAATMY/3QfOrHzXeYoRS7qMAzVCa8BrHAwnmCncQCLcBGAsYHQ/s1600/hinh-anh-hot-girl-xinh-han-quoc-wap102-com%2B%25281%2529.jpg" name="ytyty" price="25 tan" />
+                    </div>
+                    <div className="footer">
+                        <Link to="/">Hove more Questions?</Link>
+                        <Button className="view" link="/" name="Call us" />
+                    </div>
                 </div>
-                <div className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+                : */}
+            <div className="listProduct listimg">
+                <div className="head flex">
+                    <button className="done flex" >
+                        <i className="fas fa-chevron-left"></i>
+                        Back
+            </button>
+                    <h6>Services</h6>
                 </div>
-                <div className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+                <div className="listProduct-under flex">
+                    <p>0 Pictures</p>
+                    {/* <p>{transportation.metadata.total_count !== 0 && transportation.metadata.total_count} Results</p> */}
                 </div>
-                <div className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+
+                <div className="showProduct flex">
+                    {!is_Empty(itemsForTransportation) && itemsForTransportation.map((index, item) =>
+                        <div key={index} onClick={() => handleClickImage(item)} className="item" >
+                            <img src={item} alt="" />
+                        </div>
+                    )}
+
+                    <div onClick={() => handleClickImage("http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg")} className="item">
+                        <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+                    </div>
                 </div>
-                <div className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
-                </div>
-                <div className="item">
-                    <img src="http://huasing.vinova.sg/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBaFVGIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--ec412ca63953529dec1b793e14b6c140dbcc95fe/Front%20Right.jpeg" alt="" />
+                <div className="footer">
+                    <Link to="/">Hove more Questions?</Link>
+                    <Button className="view" link="/" name="Call us" />
                 </div>
             </div>
-        </div>
+
+            {/* } */}
+        </>
     )
 }
 

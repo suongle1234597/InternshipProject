@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Slide.scss'
 import PropTypes from 'prop-types'
 import OwlCarousel from 'react-owl-carousel'
@@ -13,7 +13,8 @@ const Slide = ({
     autoplay,
     margin,
     loop,
-    autoplayTimeout
+    autoplayTimeout,
+    onChanged
 }) => {
     return (
         <OwlCarousel
@@ -24,8 +25,11 @@ const Slide = ({
             dots={dots}
             items={items}
             autoplay={autoplay}
-            autoplayTimeout={autoplayTimeout}>
-            {group.map((item, index) => item)}
+            autoplayTimeout={autoplayTimeout}
+            onChanged={onChanged} >
+            {group.map((item) =>
+                item
+            )}
         </OwlCarousel>
     )
 }
@@ -38,7 +42,8 @@ Slide.propTypes = {
     dots: PropTypes.oneOf([true, false]),
     margin: PropTypes.number,
     loop: PropTypes.oneOf([true, false]),
-    autoplayTimeout: PropTypes.number
+    autoplayTimeout: PropTypes.number,
+    onChanged: PropTypes.func
 }
 
 export default Slide

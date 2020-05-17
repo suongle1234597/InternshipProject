@@ -1,13 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './Search.scss'
 
 const Search = props => {
-    useEffect(() => {
-        props.handleSearch()
-        return () => {
-            console.log("clean up")
-        }
-    }, [props.searchTerm])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -15,7 +9,7 @@ const Search = props => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="search flex container">
+        <form onSubmit={handleSubmit} className="search flex container" onClick={props.handleClickSearch}>
             <button onClick={props.handleSearch}><i className="fas fa-search"></i></button>
             <input type="text" placeholder={`Search equipments for ${props.function}`} value={props.searchTerm} onChange={props.handleChange} />
         </form>
