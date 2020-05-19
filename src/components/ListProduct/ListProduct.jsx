@@ -8,7 +8,7 @@ import { getListSearchProduct, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import Product from '../Product/Product'
 import Button from '../Button/Button'
-import { getProduct, sortProduct } from '../../action/ProductAction';
+import { getProduct } from '../../action/ProductAction';
 
 const ListProduct = props => {
     const product = useSelector(state => state.productReducer.product)
@@ -19,44 +19,35 @@ const ListProduct = props => {
     const dispatch = useDispatch()
     const [itemsForSale, setItemsForSale] = useState([])
     const [itemsForRent, setItemsForRent] = useState([])
-    const [dataSort, setDataSort] = useState(1)
+    const [dataSort, setDataSort] = useState("1")
     const [toggle, setToggle] = useState(false)
     const type = props.match.path
+    const listSearchForRent = useSelector(state => state.searchReducer.listSearchForRent)
+    const listSearchForSale = useSelector(state => state.searchReducer.listSearchForSale)
+    const productForRent = useSelector(state => state.productReducer.productForRent)
+    const productForSale = useSelector(state => state.productReducer.productForSale)
 
     useEffect(() => {
         if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
-            dispatch(getListSearchProduct(dataSearch))
+            dispatch(getListSearchProduct(dataSearch, true))
         }
         else if (type.split('/')[1] === "listOfProduct") {
-            dispatch(getProduct())
+            dispatch(getListSearchProduct(dataSearch, false))
         }
         return () => {
             console.log("clean up")
         }
     }, [])
 
-    useEffect(() => {
-        if ((type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search")) {
-            if (!isEmpty(listSearch.data)) {
-                setItemsForSale(listSearch.data.filter(item => item.purpose === "for_sale"))
-                setItemsForRent(listSearch.data.filter(item => item.purpose === "for_rent"))
-            }
-        }
-
-        return () => {
-            console.log("clean up")
-        }
-    }, [listSearch])
-
-    useEffect(() => {
-        if (!isEmpty(product.data) && type.split('/')[1] === "listOfProduct") {
-            setItemsForSale(product.data.filter(item => item.purpose === "for_sale"))
-            setItemsForRent(product.data.filter(item => item.purpose === "for_rent"))
-        }
-        return () => {
-            console.log("clean up")
-        }
-    }, [product])
+    // useEffect(() => {
+    //     if (!isEmpty(product.data) && type.split('/')[1] === "listOfProduct") {
+    //         setItemsForSale(product.data.filter(item => item.purpose === "for_sale" || item.purpose === "for_sale_and_rent"))
+    //         setItemsForRent(product.data.filter(item => item.purpose === "for_rent" || item.purpose === "for_sale_and_rent"))
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [product])
 
     //khi chon kieu sap xep
     useEffect(() => {
@@ -69,15 +60,36 @@ const ListProduct = props => {
     const handleClickSale = () => {
         if (toggle) {
             setToggle(false)
+            dispatch(setDataSearch({
+                ...dataSearch,
+                purpose: 0
+            }))
+            if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
+                dispatch(getListSearchProduct(dataSearch, true))
+            }
+            else if (type.split('/')[1] === "listOfProduct") {
+                dispatch(getListSearchProduct(dataSearch, false))
+            }
         }
     }
 
     const handleClickRent = () => {
         if (!toggle) {
             setToggle(true)
+            dispatch(setDataSearch({
+                ...dataSearch,
+                purpose: 1
+            }))
+            if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
+                dispatch(getListSearchProduct(dataSearch, true))
+            }
+            else if (type.split('/')[1] === "listOfProduct") {
+                dispatch(getListSearchProduct(dataSearch, false))
+            }
         }
     }
 
+    //lay du lieu sort
     const handleChange = e => {
         setDataSort(e.target.value)
     }
@@ -115,7 +127,12 @@ const ListProduct = props => {
                 sort_key: sort_key.time_in_use
             }))
         }
-        dispatch(getListSearchProduct(dataSearch))
+        if ((type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search")) {
+            dispatch(getListSearchProduct(dataSearch, true))
+        }
+        else {
+            dispatch(getListSearchProduct(dataSearch, false))
+        }
     }
 
     const handleClickBack = () => {
@@ -137,13 +154,25 @@ const ListProduct = props => {
             </div>
             <Header toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />
             <div className="listProduct-under flex">
-                {!toggle ?
-                    <p>{itemsForSale.length !== 0 && itemsForSale.length} Results</p>
+                {type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search" ?
+                    <>
+                        {!toggle ?
+                            <p>{!isEmpty(listSearchForSale) && listSearchForSale.data.length} Results</p>
+                            :
+                            <p>{!isEmpty(listSearchForRent) && listSearchForRent.data.length} Results</p>}
+                    </>
                     :
-                    <p>{itemsForRent.length !== 0 && itemsForRent.length} Results</p>}
+                    <>
+                        {!toggle ?
+                            <p>{!isEmpty(productForSale) && productForSale.data.length} Results</p>
+                            :
+                            <p>{!isEmpty(productForRent) && productForRent.data.length} Results</p>}
+                    </>
+                }
+
                 <div className="sort">
                     <select name="sort" id="" value={dataSort} onChange={handleChange} className="select">
-                        <option value="1">Latest ˅</option>
+                        <option value="1">Latest</option>
                         <option value="2">Year ↓</option>
                         <option value="3">Year ↑</option>
                         <option value="4">Running Hours ↓</option>
@@ -151,13 +180,30 @@ const ListProduct = props => {
                     </select>
                 </div>
             </div>
-            {!toggle ?
-                <div className="showProduct flex">
-                    {!isEmpty(itemsForSale) ? itemsForSale.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
-                </div> :
-                <div className="showProduct flex">
-                    {!isEmpty(itemsForRent) ? itemsForRent.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
-                </div>}
+            {type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search" ?
+                <>
+                    {!toggle ?
+                        <div className="showProduct flex">
+                            {!isEmpty(listSearchForSale) ? listSearchForSale.data.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
+                        </div>
+                        :
+                        <div className="showProduct flex">
+                            {!isEmpty(listSearchForRent) ? listSearchForRent.data.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
+                        </div>}
+                </>
+                :
+                <>
+                    {!toggle ?
+                        <div className="showProduct flex">
+                            {!isEmpty(productForSale) ? productForSale.data.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for sale"}
+                        </div>
+                        :
+                        <div className="showProduct flex">
+                            {!isEmpty(productForRent) ? productForRent.data.map(item => <Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />) : "No equipment for rent"}
+                        </div>}
+                </>
+            }
+
             <div className="footer">
                 <Link to="/">Hove more Questions?</Link>
                 <Button className="view" link="/" name="Call us" />

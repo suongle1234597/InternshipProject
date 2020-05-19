@@ -1,7 +1,8 @@
 import {
     GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS, HANDLE_BRANDS, GET_AVAILABILITY,
     HANDLE_AVAILABILITY, GET_LIST_SEARCH, RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS,
-    RESET_SELECT_AVAILABILITY, RESET_ALL, GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SORT, SET_DATA_SEARCH
+    RESET_SELECT_AVAILABILITY, RESET_ALL, GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH,
+    GET_LIST_SEARCH_FOR_RENT, GET_LIST_SEARCH_FOR_SALE
 } from '../action/type'
 
 const initialState = {
@@ -10,17 +11,20 @@ const initialState = {
     availability: {},
     dataSearch: {
         search_key: "",
-        product_type_ids: [],
         brand_ids: [],
+        product_type_ids: [],
         status: [],
         from_use: "",
         to_use: "",
         from_year: "",
         to_year: "",
+        purpose: "",
         sort: "",
         sort_key: ""
     },
     listSearch: [],
+    listSearchForRent: [],
+    listSearchForSale: [],
     listNameSearch: []
 }
 
@@ -104,17 +108,22 @@ const searchReducer = (state = initialState, action) => {
                 listNameSearch: action.response.data
             }
         }
-        case SORT: {
-            console.log("ssssssssss")
-            return {
-                ...state,
-                listSearch: action.response
-            }
-        }
         case SET_DATA_SEARCH: {
             return {
                 ...state,
                 dataSearch: action.response
+            }
+        }
+        case GET_LIST_SEARCH_FOR_RENT: {
+            return {
+                ...state,
+                listSearchForRent: action.response
+            }
+        }
+        case GET_LIST_SEARCH_FOR_SALE: {
+            return {
+                ...state,
+                listSearchForSale: action.response
             }
         }
         default: return state

@@ -1,4 +1,4 @@
-import React, { useEffect, useState , memo} from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import './Detail.scss'
 import { Link } from 'react-router-dom'
 import Slide from '../Slide/Slide'
@@ -133,6 +133,7 @@ const Detail = props => {
                                     </tr>
                                     <tr>
                                         <th>Remarks</th>
+                                        <td ></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,7 +158,7 @@ const Detail = props => {
                     </div>
                     {!is_Empty(transportationDetail) ?
                         <>
-                            <div className="slide">
+                            <div className="slide" onClick={() => handleClickImage(items)}>
                                 {items.length != 0 ?
                                     <Slide group={items} items={1} dots={true} loop={true} autoplay={true} autoplayTimeout={5000} />
                                     : ""}

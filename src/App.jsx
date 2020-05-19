@@ -62,8 +62,8 @@ const App = () => {
         <div className="container">
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
-            <Route path='/listService' render={() => <ListImg handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
-            <Route path='/listRepair/:id' render={() => <ListImg handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/listService' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/listRepair/:id' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
             <Route path='/product/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
             <Route path='/service/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
             <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />

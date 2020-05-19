@@ -2,7 +2,8 @@ import {
     GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS,
     HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_SEARCH,
     RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY, RESET_ALL,
-    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH
+    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH, SORT, GET_LIST_SEARCH_FOR_RENT,
+    GET_LIST_SEARCH_FOR_SALE, GET_PRODUCT_FOR_RENT, GET_PRODUCT_FOR_SALE
 } from './type'
 import axios from 'axios'
 import isEmpty from '../isEmpty'
@@ -117,19 +118,17 @@ export const selectAvailability = (data, id) => dispatch => {
 
 export const resetAll = () => dispatch => {
     let obj = {
-        productType: {},
-        brand: {},
-        availability: {},
-        dataSearch: {
-            product_type_ids: [],
-            brand_ids: [],
-            status: [],
-            from_use: "",
-            to_use: "",
-            from_year: "",
-            to_year: ""
-        },
-        listSearch: []
+        search_key: "",
+        brand_ids: [],
+        product_type_ids: [],
+        status: [],
+        from_use: "",
+        to_use: "",
+        from_year: "",
+        to_year: "",
+        purpose: "",
+        sort: "",
+        sort_key: ""
     }
 
     dispatch({
@@ -145,7 +144,8 @@ export const setDataSearch = (data) => async dispatch => {
     })
 }
 
-export const getListSearchProduct = (data) => async dispatch => {
+export const getListSearchProduct = (data, flag) => async dispatch => {
+
     dispatch({
         type: CLEAR_ERROR
     })
@@ -163,26 +163,70 @@ export const getListSearchProduct = (data) => async dispatch => {
         })
     }
     else {
-        await axios.get("http://huasing.vinova.sg/api/v1/products?", {
-            params: {
-                search_key: data.search_key,
-                from_use: data.from_use,
-                to_use: data.to_use,
-                from_year: data.from_year,
-                to_year: data.to_year,
-                sort: data.sort,
-                sort_key: data.sort_key
-            },
+        var obj = {
+            search_key: data.search_key,
+            from_use: data.from_use,
+            to_use: data.to_use,
+            from_year: data.from_year,
+            to_year: data.to_year,
+            sort: "asc",
+            sort_key: "created_at"
+        }
+        if (!isEmpty(data.sort_key) && !isEmpty(data.sort)) {
+            obj.sort = data.sort
+            obj.sort_key = data.sort_key
+        }
+        if (isEmpty(data.purpose)) {
+            data.purpose = 0
+        }
+        await axios.get("http://huasing.vinova.sg/api/v1/products", {
+            params: obj,
             body: {
                 product_type_ids: data.product_type_ids,
                 brand_ids: data.brand_ids,
-                status: data.status
+                status: data.status,
+                purpose: data.purpose
             }
         }).then(res_api => {
-            dispatch({
-                type: GET_LIST_SEARCH,
-                response: res_api.data
-            })
+            if (flag === true) {
+                if (data.purpose === 1) {
+                    dispatch({
+                        type: GET_LIST_SEARCH_FOR_RENT,
+                        response: res_api.data
+                    })
+                }
+                else if (data.purpose === 0) {
+                    dispatch({
+                        type: GET_LIST_SEARCH_FOR_SALE,
+                        response: res_api.data
+                    })
+                }
+                dispatch({
+                    type: GET_LIST_SEARCH,
+                    response: res_api.data
+                })
+            }
+            else {
+                if (data.purpose === 1) {
+                    dispatch({
+                        type: GET_PRODUCT_FOR_RENT,
+                        response: res_api.data
+                    })
+                }
+                else if (data.purpose === 0) {
+                    dispatch({
+                        type: GET_PRODUCT_FOR_SALE,
+                        response: res_api.data
+                    })
+                }
+                dispatch({
+                    type: SORT,
+                    response: res_api.data
+                })
+            }
+
+        }).catch(error => {
+            console.log(error)
         })
     }
 }

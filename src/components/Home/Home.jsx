@@ -31,29 +31,6 @@ const Home = props => {
 
     const [flag, setFlag] = useState(false)
 
-    const data = [
-        "All Terrain Crane & Hydraulic Truck Crane",
-        "Bobcat",
-        "Caterpillar",
-        "Compactor/Roller",
-        "Concrete Pump",
-        "Crusher/Screener",
-        "Doosan",
-        "Dump Truck",
-        "Excavator",
-        "Fuso",
-        "Hiab",
-        "Hitachi",
-        "Hyundai",
-        "Ingersoll-Rand",
-        "Isuzu",
-        "Iveco",
-        "JunJin",
-        "Kato",
-        "Kobelco",
-        "Komatsu"
-    ]
-
     useEffect(() => {
         dispatch(getBanner())
         dispatch(getProduct())
@@ -88,14 +65,14 @@ const Home = props => {
 
     useEffect(() => {
         if (!is_Empty(product)) {
-            var arr = product.data.filter(item => item.purpose === "for_sale")
+            var arr = product.data.filter(item => item.purpose === "for_sale" || item.purpose === "for_sale_and_rent")
             var array = []
             arr.forEach(item => {
                 array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
             });
             setItemsForSale(array)
 
-            var arr2 = product.data.filter(item => item.purpose === "for_rent")
+            var arr2 = product.data.filter(item => item.purpose === "for_rent" || item.purpose === "for_sale_and_rent")
             var array2 = []
             arr2.forEach(item => {
                 array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
@@ -173,8 +150,8 @@ const Home = props => {
                         {flag ?
                             <table className="listSearch table table-striped">
                                 <tbody>
-                                    {listNameSearch.length != 0 ? listNameSearch.map(item =>
-                                        <tr>
+                                    {listNameSearch.length != 0 ? listNameSearch.map((item, index) =>
+                                        <tr key={index}>
                                             <td>
                                                 <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
                                                 <br />
