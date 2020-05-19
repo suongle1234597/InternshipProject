@@ -32,15 +32,26 @@ const Home = props => {
     const [flag, setFlag] = useState(false)
 
     const data = [
-        " All Terrain Crane & Hydraulic Truck Crane",
-        "Crawler Tower Crane/Crawler Crane",
-        "Crusher",
+        "All Terrain Crane & Hydraulic Truck Crane",
+        "Bobcat",
+        "Caterpillar",
         "Compactor/Roller",
-        "Excavator with Telescopic Dipper",
-        "Excavator with Vibro/Breaker",
-        "Long Arm Excavator & High Reach Boom",
-        "Skid Loader & Boom Lift",
-        "Wheel Loader & Bulldozer "
+        "Concrete Pump",
+        "Crusher/Screener",
+        "Doosan",
+        "Dump Truck",
+        "Excavator",
+        "Fuso",
+        "Hiab",
+        "Hitachi",
+        "Hyundai",
+        "Ingersoll-Rand",
+        "Isuzu",
+        "Iveco",
+        "JunJin",
+        "Kato",
+        "Kobelco",
+        "Komatsu"
     ]
 
     useEffect(() => {
@@ -54,6 +65,7 @@ const Home = props => {
         }
     }, [])
 
+    //moi khi input thay doi
     useEffect(() => {
         handleSearch()
         return () => {
@@ -125,20 +137,21 @@ const Home = props => {
         setSearchTerm(e.target.value)
     }
 
+    //khi nhap tu khoa de search hoac nhan enter
     const handleSearch = () => {
         dispatch(getNameSearch(searchTerm))
     }
 
+    //khi click vao key chon
     const handleSearchForKey = value => {
         dispatch(setDataSearch({
             ...dataSearch,
             search_key: value
         }))
-        dispatch(getListSearchProduct(dataSearch))
+        // dispatch(getListSearchProduct(dataSearch))
     }
 
-    // console.log(dataSearch)
-
+    //khi click vao search hien ra list
     const handleClickSearch = () => {
         dispatch(getListNameSearch())
         setFlag(true)
@@ -158,7 +171,7 @@ const Home = props => {
                     <>
                         <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} handleClickSearch={handleClickSearch} />
                         {flag ?
-                            <table class="listSearch table table-striped">
+                            <table className="listSearch table table-striped">
                                 <tbody>
                                     {listNameSearch.length != 0 ? listNameSearch.map(item =>
                                         <tr>

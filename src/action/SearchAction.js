@@ -169,7 +169,9 @@ export const getListSearchProduct = (data) => async dispatch => {
                 from_use: data.from_use,
                 to_use: data.to_use,
                 from_year: data.from_year,
-                to_year: data.to_year
+                to_year: data.to_year,
+                sort: data.sort,
+                sort_key: data.sort_key
             },
             body: {
                 product_type_ids: data.product_type_ids,
@@ -182,8 +184,6 @@ export const getListSearchProduct = (data) => async dispatch => {
                 response: res_api.data
             })
         })
-        // history.push('/productSearchList')
-        // window.location.href = '/productSearchList'
     }
 }
 

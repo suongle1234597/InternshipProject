@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link } from 'react-router-dom'
 import '../../reset.scss'
 
@@ -8,4 +8,4 @@ const Button = props => {
     )
 }
 
-export default Button
+export default memo(Button)

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState , memo} from 'react'
 import './Detail.scss'
 import { Link } from 'react-router-dom'
 import Slide from '../Slide/Slide'
@@ -44,7 +44,7 @@ const Detail = props => {
         if (!is_Empty(productDetail)) {
             const arr1 = []
             productDetail.images.forEach(element => {
-                arr1.push(<img src={element.url.original} alt="" />)
+                arr1.push(<img key={element.id} src={element.url.original} alt="" />)
             });
             setItems(arr1)
         }
@@ -205,4 +205,4 @@ const Detail = props => {
     )
 }
 
-export default Detail
+export default memo(Detail)

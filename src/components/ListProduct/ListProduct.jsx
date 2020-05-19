@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import './ListProduct.scss'
 import '../../reset.scss'
 import Header from '../Header/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getListSearchProduct } from '../../action/SearchAction'
+import { getListSearchProduct, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import Product from '../Product/Product'
 import Button from '../Button/Button'
@@ -23,13 +23,11 @@ const ListProduct = props => {
     const [toggle, setToggle] = useState(false)
     const type = props.match.path
 
-    // console.log(dataSearch)
-
     useEffect(() => {
         if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
             dispatch(getListSearchProduct(dataSearch))
         }
-        else {
+        else if (type.split('/')[1] === "listOfProduct") {
             dispatch(getProduct())
         }
         return () => {
@@ -38,25 +36,29 @@ const ListProduct = props => {
     }, [])
 
     useEffect(() => {
-        if (!isEmpty(listSearch.data)) {
-            setItemsForSale(listSearch.data.filter(item => item.purpose === "for_sale"))
-            setItemsForRent(listSearch.data.filter(item => item.purpose === "for_rent"))
+        if ((type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search")) {
+            if (!isEmpty(listSearch.data)) {
+                setItemsForSale(listSearch.data.filter(item => item.purpose === "for_sale"))
+                setItemsForRent(listSearch.data.filter(item => item.purpose === "for_rent"))
+            }
         }
+
         return () => {
             console.log("clean up")
         }
     }, [listSearch])
 
     useEffect(() => {
-        if (!isEmpty(product.data)) {
+        if (!isEmpty(product.data) && type.split('/')[1] === "listOfProduct") {
             setItemsForSale(product.data.filter(item => item.purpose === "for_sale"))
             setItemsForRent(product.data.filter(item => item.purpose === "for_rent"))
         }
         return () => {
             console.log("clean up")
         }
-    }, [product.data])
+    }, [product])
 
+    //khi chon kieu sap xep
     useEffect(() => {
         handleSort()
         return () => {
@@ -82,17 +84,38 @@ const ListProduct = props => {
 
     const handleSort = () => {
         if (dataSort === "1") {
-            dispatch(sortProduct(sort.asc, sort_key.created_at))
+            dispatch(setDataSearch({
+                ...dataSearch,
+                sort: sort.asc,
+                sort_key: sort_key.created_at
+            }))
         } else if (dataSort === "2") {
-            dispatch(sortProduct(sort.desc, sort_key.year_of_produce))
+            dispatch(setDataSearch({
+                ...dataSearch,
+                sort: sort.desc,
+                sort_key: sort_key.year_of_produce
+            }))
         } else if (dataSort === "3") {
-            dispatch(sortProduct(sort.asc, sort_key.year_of_produce))
+            dispatch(setDataSearch({
+                ...dataSearch,
+                sort: sort.asc,
+                sort_key: sort_key.year_of_produce
+            }))
         } else if (dataSort === "4") {
-            dispatch(sortProduct(sort.desc, sort_key.time_in_use))
+            dispatch(setDataSearch({
+                ...dataSearch,
+                sort: sort.desc,
+                sort_key: sort_key.time_in_use
+            }))
         }
         else if (dataSort === "5") {
-            dispatch(sortProduct(sort.asc, sort_key.time_in_use))
+            dispatch(setDataSearch({
+                ...dataSearch,
+                sort: sort.asc,
+                sort_key: sort_key.time_in_use
+            }))
         }
+        dispatch(getListSearchProduct(dataSearch))
     }
 
     const handleClickBack = () => {
@@ -143,4 +166,4 @@ const ListProduct = props => {
     )
 }
 
-export default ListProduct
+export default memo(ListProduct)

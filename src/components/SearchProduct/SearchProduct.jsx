@@ -85,7 +85,7 @@ const SearchProduct = props => {
     }
 
     const handleSearch = () => {
-        dispatch(getListSearchProduct(dataSearch))
+        // dispatch(getListSearchProduct(dataSearch))
     }
 
     return (

@@ -16,7 +16,9 @@ const initialState = {
         from_use: "",
         to_use: "",
         from_year: "",
-        to_year: ""
+        to_year: "",
+        sort: "",
+        sort_key: ""
     },
     listSearch: [],
     listNameSearch: []
@@ -103,6 +105,7 @@ const searchReducer = (state = initialState, action) => {
             }
         }
         case SORT: {
+            console.log("ssssssssss")
             return {
                 ...state,
                 listSearch: action.response

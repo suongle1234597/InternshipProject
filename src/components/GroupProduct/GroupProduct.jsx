@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Slide from '../Slide/Slide'
 import Button from '../Button/Button'
 import './GroupProduct.scss'
@@ -15,4 +15,4 @@ const GroupProduct = props => {
     )
 }
 
-export default GroupProduct
+export default memo(GroupProduct)

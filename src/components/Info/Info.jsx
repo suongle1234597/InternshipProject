@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import './Info.scss'
 import { Link } from 'react-router-dom'
 
@@ -24,4 +24,4 @@ const Info = props => {
     )
 }
 
-export default Info
+export default memo(Info)

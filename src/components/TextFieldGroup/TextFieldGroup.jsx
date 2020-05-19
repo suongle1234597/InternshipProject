@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
 import './TextFieldGroup.scss'
 
@@ -30,4 +30,4 @@ TextFieldGroup.propTypes = {
     placeholder: PropTypes.string
 }
 
-export default TextFieldGroup
+export default memo(TextFieldGroup)
