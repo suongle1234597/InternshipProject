@@ -30,8 +30,8 @@ const Detail = props => {
     useEffect(() => {
         if (!is_Empty(transportationDetail)) {
             const arr = []
-            transportationDetail.images.forEach(element => {
-                arr.push(<img src={element.url.original} alt="" />)
+            transportationDetail.images.forEach((element, index) => {
+                arr.push(<img key={index} src={element.url.original} alt="" />)
             });
             setItems(arr)
         }
@@ -81,7 +81,7 @@ const Detail = props => {
                     </div>
                     {!is_Empty(productDetail) ?
                         <>
-                            {items.length != 0 ?
+                            {items.length !== 0 ?
                                 <div className="slide" onClick={() => handleClickImage(items)}>
                                     <Slide group={items} items={1} dots={true} loop={true} autoplay={true} autoplayTimeout={5000} />
                                 </div>
@@ -120,12 +120,12 @@ const Detail = props => {
                                     </tr>
                                     <tr>
                                         <th scope="row">Status:</th>
-                                        {productDetail.status === "available" ?
-                                            <td className="available">Available <i className="fas fa-circle"></i></td> : ""}
-                                        {productDetail.status === "notavailable" ?
-                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : ""}
-                                        {productDetail.status === "comingsoon" ?
-                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : ""}
+                                        {productDetail.status === "available" &&
+                                            <td className="available">Available <i className="fas fa-circle"></i></td>}
+                                        {productDetail.status === "notavailable" &&
+                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td>}
+                                        {productDetail.status === "comingsoon" &&
+                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td>}
                                     </tr>
                                     <tr>
                                         <th scope="row">Catalog:</th>
@@ -159,7 +159,7 @@ const Detail = props => {
                     {!is_Empty(transportationDetail) ?
                         <>
                             <div className="slide" onClick={() => handleClickImage(items)}>
-                                {items.length != 0 ?
+                                {items.length !== 0 ?
                                     <Slide group={items} items={1} dots={true} loop={true} autoplay={true} autoplayTimeout={5000} />
                                     : ""}
                             </div>
@@ -180,12 +180,12 @@ const Detail = props => {
                                     </tr>
                                     <tr>
                                         <th scope="row">Status</th>
-                                        {transportationDetail.status === "available" ?
-                                            <td className="available">Available <i className="fas fa-circle"></i></td> : ""}
-                                        {transportationDetail.status === "notavailable" ?
-                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td> : ""}
-                                        {transportationDetail.status === "comingsoon" ?
-                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td> : ""}
+                                        {transportationDetail.status === "available" &&
+                                            <td className="available">Available <i className="fas fa-circle"></i></td>}
+                                        {transportationDetail.status === "notavailable" &&
+                                            <td className="notavailable">Not Available <i className="fas fa-circle"></i></td>}
+                                        {transportationDetail.status === "comingsoon" &&
+                                            <td className="comingsoon">Coming soon <i className="fas fa-circle"></i></td>}
                                     </tr>
                                     <tr>
                                         <th>Remarks</th>

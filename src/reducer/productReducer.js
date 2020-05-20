@@ -1,4 +1,4 @@
-import { GET_PRODUCT, GET_PRODUCT_DETAIL, SORT, GET_PRODUCT_FOR_RENT, GET_LIST_SEARCH_FOR_SALE, GET_PRODUCT_FOR_SALE } from '../action/type'
+import { GET_PRODUCT, GET_PRODUCT_DETAIL, SORT, GET_PRODUCT_FOR_RENT, GET_PRODUCT_FOR_SALE } from '../action/type'
 
 const initialState = {
     product: {},

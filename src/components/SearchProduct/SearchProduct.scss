@@ -34,5 +34,13 @@
         border-bottom: 1px solid var(--lightgray);
         padding: 15px;
     }
-    
+    .head{
+        justify-content: space-between;
+        button.done{
+            position: unset;
+        }
+    }
+    .showItem{
+        padding-left: 15px;
+    }
 }

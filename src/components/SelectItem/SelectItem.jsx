@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getProductType, selectProductTypes, getBrands, selectBrand, getAvailability, selectAvailability, resetSelectProductType, resetSelectBrands, resetSelectAvailability, getListSearchProduct } from '../../action/SearchAction'

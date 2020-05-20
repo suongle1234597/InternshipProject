@@ -8,17 +8,15 @@ import { getListSearchProduct, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import Product from '../Product/Product'
 import Button from '../Button/Button'
-import { getProduct } from '../../action/ProductAction';
+// import { getProduct } from '../../action/ProductAction';
 
 const ListProduct = props => {
-    const product = useSelector(state => state.productReducer.product)
-    const listSearch = useSelector(state => state.searchReducer.listSearch)
+    // const product = useSelector(state => state.productReducer.product)
+    // const listSearch = useSelector(state => state.searchReducer.listSearch)
     const dataSearch = useSelector(state => state.searchReducer.dataSearch)
     const sort = useSelector(state => state.productReducer.sort)
     const sort_key = useSelector(state => state.productReducer.sort_key)
     const dispatch = useDispatch()
-    const [itemsForSale, setItemsForSale] = useState([])
-    const [itemsForRent, setItemsForRent] = useState([])
     const [dataSort, setDataSort] = useState("1")
     const [toggle, setToggle] = useState(false)
     const type = props.match.path
@@ -29,25 +27,32 @@ const ListProduct = props => {
 
     useEffect(() => {
         if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
-            dispatch(getListSearchProduct(dataSearch, true))
+            //lay data cua For Sale
+            dispatch(getListSearchProduct({
+                ...dataSearch,
+                purpose: 0
+            }, true))
+            //lay data cau For Rent
+            dispatch(getListSearchProduct({
+                ...dataSearch,
+                purpose: 1
+            }, true))
         }
         else if (type.split('/')[1] === "listOfProduct") {
-            dispatch(getListSearchProduct(dataSearch, false))
+            dispatch(getListSearchProduct({
+                ...dataSearch,
+                purpose: 0
+            }, false))
+            // lay data cau For Rent
+            dispatch(getListSearchProduct({
+                ...dataSearch,
+                purpose: 1
+            }, false))
         }
         return () => {
             console.log("clean up")
         }
     }, [])
-
-    // useEffect(() => {
-    //     if (!isEmpty(product.data) && type.split('/')[1] === "listOfProduct") {
-    //         setItemsForSale(product.data.filter(item => item.purpose === "for_sale" || item.purpose === "for_sale_and_rent"))
-    //         setItemsForRent(product.data.filter(item => item.purpose === "for_rent" || item.purpose === "for_sale_and_rent"))
-    //     }
-    //     return () => {
-    //         console.log("clean up")
-    //     }
-    // }, [product])
 
     //khi chon kieu sap xep
     useEffect(() => {
@@ -60,32 +65,12 @@ const ListProduct = props => {
     const handleClickSale = () => {
         if (toggle) {
             setToggle(false)
-            dispatch(setDataSearch({
-                ...dataSearch,
-                purpose: 0
-            }))
-            if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
-                dispatch(getListSearchProduct(dataSearch, true))
-            }
-            else if (type.split('/')[1] === "listOfProduct") {
-                dispatch(getListSearchProduct(dataSearch, false))
-            }
         }
     }
 
     const handleClickRent = () => {
         if (!toggle) {
             setToggle(true)
-            dispatch(setDataSearch({
-                ...dataSearch,
-                purpose: 1
-            }))
-            if (type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search") {
-                dispatch(getListSearchProduct(dataSearch, true))
-            }
-            else if (type.split('/')[1] === "listOfProduct") {
-                dispatch(getListSearchProduct(dataSearch, false))
-            }
         }
     }
 
@@ -95,27 +80,33 @@ const ListProduct = props => {
     }
 
     const handleSort = () => {
+        let purpose = 1
+        if (toggle === false) purpose = 0
         if (dataSort === "1") {
             dispatch(setDataSearch({
                 ...dataSearch,
+                purpose,
                 sort: sort.asc,
                 sort_key: sort_key.created_at
             }))
         } else if (dataSort === "2") {
             dispatch(setDataSearch({
                 ...dataSearch,
+                purpose,
                 sort: sort.desc,
                 sort_key: sort_key.year_of_produce
             }))
         } else if (dataSort === "3") {
             dispatch(setDataSearch({
                 ...dataSearch,
+                purpose,
                 sort: sort.asc,
                 sort_key: sort_key.year_of_produce
             }))
         } else if (dataSort === "4") {
             dispatch(setDataSearch({
                 ...dataSearch,
+                purpose,
                 sort: sort.desc,
                 sort_key: sort_key.time_in_use
             }))
@@ -123,6 +114,7 @@ const ListProduct = props => {
         else if (dataSort === "5") {
             dispatch(setDataSearch({
                 ...dataSearch,
+                purpose,
                 sort: sort.asc,
                 sort_key: sort_key.time_in_use
             }))
@@ -130,7 +122,7 @@ const ListProduct = props => {
         if ((type.split('/')[1] === "productSearchList" || type.split('/')[1] === "search")) {
             dispatch(getListSearchProduct(dataSearch, true))
         }
-        else {
+        else if (type.split('/')[1] === "listOfProduct") {
             dispatch(getListSearchProduct(dataSearch, false))
         }
     }

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import './ListImg.scss'
-import Modal from '../Modal/Modal'
 import Product from '../Product/Product'
 import { Link } from 'react-router-dom'
 import is_Empty from '../../isEmpty'

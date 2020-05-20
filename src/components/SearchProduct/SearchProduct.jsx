@@ -84,44 +84,39 @@ const SearchProduct = props => {
         setItemsForAvailability([])
     }
 
-    const handleSearch = () => {
-        // dispatch(getListSearchProduct(dataSearch))
-    }
-
     return (
         <div className="settings searchproduct">
             <div className="head flex">
-                <button className="done flex" >
+                <Link to="/"><button className="done flex" >
                     <i className="fas fa-chevron-left"></i>
                     Back
-                </button>
+                </button></Link>
                 <h6>Search Products</h6>
-                <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
+                <Link to="/productSearchList"><button>Search</button></Link>
             </div>
 
             <Link to='/selectProduct'>
                 <div className="item flex">
                     Product Type
                     <div className="any">
-                        Any
-                    <i className="fas fa-chevron-right"></i>
+                        <i className="fas fa-chevron-right"></i>
                     </div>
                 </div>
-                {!isEmpty(itemsForProduct) && itemsForProduct.map((item, index) => <div key={index}>{item}<br /></div>)}
+                {!isEmpty(itemsForProduct) && itemsForProduct.map((item, index) => <div key={index} className="showItem">{item}<br /></div>)}
             </Link>
             <Link to='/selectBrand'>
                 <div className="item flex">
                     Brand
             <i className="fas fa-chevron-right"></i>
                 </div>
-                {!isEmpty(itemsForBrand) && itemsForBrand.map(item => <div key={item}>{item}<br /></div>)}
+                {!isEmpty(itemsForBrand) && itemsForBrand.map(item => <div key={item} className="showItem">{item}<br /></div>)}
             </Link>
             <Link to='/selectAvailability'>
                 <div className="item flex">
                     Availability
             <i className="fas fa-chevron-right"></i>
                 </div>
-                {!isEmpty(itemsForAvailability) && itemsForAvailability.map(item => <div key={item}>{item}<br /></div>)}
+                {!isEmpty(itemsForAvailability) && itemsForAvailability.map(item => <div key={item} className="showItem">{item}<br /></div>)}
             </Link>
             <div className="item">
                 Running

@@ -1,8 +1,8 @@
 import {
     GET_ERROR, CLEAR_ERROR, GET_PRODUCT_TYPES, HANDLE_PRODUCT_TYPES, GET_BRANDS,
-    HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY, GET_LIST_SEARCH,
+    HANDLE_BRANDS, GET_AVAILABILITY, HANDLE_AVAILABILITY,
     RESET_SELECT_PRODUCT_TYPES, RESET_SELECT_BRANDS, RESET_SELECT_AVAILABILITY, RESET_ALL,
-    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH, SORT, GET_LIST_SEARCH_FOR_RENT,
+    GET_NAME_SEARCH, GET_LIST_NAME_SEARCH, SET_DATA_SEARCH, GET_LIST_SEARCH_FOR_RENT,
     GET_LIST_SEARCH_FOR_SALE, GET_PRODUCT_FOR_RENT, GET_PRODUCT_FOR_SALE
 } from './type'
 import axios from 'axios'
@@ -126,7 +126,7 @@ export const resetAll = () => dispatch => {
         to_use: "",
         from_year: "",
         to_year: "",
-        purpose: "",
+        purpose: 0,
         sort: "",
         sort_key: ""
     }
@@ -145,7 +145,6 @@ export const setDataSearch = (data) => async dispatch => {
 }
 
 export const getListSearchProduct = (data, flag) => async dispatch => {
-
     dispatch({
         type: CLEAR_ERROR
     })
@@ -163,29 +162,31 @@ export const getListSearchProduct = (data, flag) => async dispatch => {
         })
     }
     else {
-        var obj = {
+        let obj = {
             search_key: data.search_key,
             from_use: data.from_use,
             to_use: data.to_use,
             from_year: data.from_year,
             to_year: data.to_year,
             sort: "asc",
-            sort_key: "created_at"
+            sort_key: "created_at",
+            purpose: data.purpose,
         }
         if (!isEmpty(data.sort_key) && !isEmpty(data.sort)) {
             obj.sort = data.sort
             obj.sort_key = data.sort_key
         }
-        if (isEmpty(data.purpose)) {
-            data.purpose = 0
-        }
+        // if (isEmpty(data.purpose)) {
+        //     obj.purpose = 0
+        // }
+        console.log(data.purpose)
         await axios.get("http://huasing.vinova.sg/api/v1/products", {
             params: obj,
             body: {
                 product_type_ids: data.product_type_ids,
                 brand_ids: data.brand_ids,
                 status: data.status,
-                purpose: data.purpose
+                // purpose: data.purpose
             }
         }).then(res_api => {
             if (flag === true) {
@@ -201,10 +202,6 @@ export const getListSearchProduct = (data, flag) => async dispatch => {
                         response: res_api.data
                     })
                 }
-                dispatch({
-                    type: GET_LIST_SEARCH,
-                    response: res_api.data
-                })
             }
             else {
                 if (data.purpose === 1) {
@@ -219,12 +216,7 @@ export const getListSearchProduct = (data, flag) => async dispatch => {
                         response: res_api.data
                     })
                 }
-                dispatch({
-                    type: SORT,
-                    response: res_api.data
-                })
             }
-
         }).catch(error => {
             console.log(error)
         })

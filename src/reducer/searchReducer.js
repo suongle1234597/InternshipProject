@@ -18,7 +18,7 @@ const initialState = {
         to_use: "",
         from_year: "",
         to_year: "",
-        purpose: "",
+        purpose: 0,
         sort: "",
         sort_key: ""
     },

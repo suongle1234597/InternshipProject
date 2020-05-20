@@ -28,12 +28,22 @@ const Home = props => {
     const [itemsForTransportation, setItemsForTransportation] = useState([])
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
-
+    // const productForRent = useSelector(state => state.productReducer.productForRent)
+    // const productForSale = useSelector(state => state.productReducer.productForSale)
     const [flag, setFlag] = useState(false)
 
     useEffect(() => {
         dispatch(getBanner())
         dispatch(getProduct())
+        // dispatch(getListSearchProduct({
+        //     ...dataSearch,
+        //     purpose: 0
+        // }, true))
+        // //lay data cau For Rent
+        // dispatch(getListSearchProduct({
+        //     ...dataSearch,
+        //     purpose: 1
+        // }, true))
         dispatch(getTransportation())
         dispatch(getRepairMaintenances())
 
@@ -84,6 +94,32 @@ const Home = props => {
         }
     }, [product])
 
+    // useEffect(() => {
+    //     if (!is_Empty(productForSale)) {
+    //         let array = []
+    //         productForSale.data.forEach(item => {
+    //             array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+    //         });
+    //         setItemsForSale(array)
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [productForSale])
+
+    // useEffect(() => {
+    //     if (!is_Empty(productForRent)) {
+    //         let array2 = []
+    //         productForRent.data.forEach(item => {
+    //             array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+    //         });
+    //         setItemsForRent(array2)
+    //     }
+    //     return () => {
+    //         console.log("clean up")
+    //     }
+    // }, [productForRent])
+
     useEffect(() => {
         if (!is_Empty(transportation)) {
             var array3 = []
@@ -99,7 +135,7 @@ const Home = props => {
 
     useEffect(() => {
         if (!is_Empty(repairMaintenances)) {
-            var array4 = []
+            const array4 = []
             repairMaintenances.forEach(item => {
                 array4.push(<Link to={`/listRepair/${item.id}`} key={item.id}><div className="item flex" ><img src={item.images[0].url.original} alt="" /><p>{item.name}</p> </div></Link>)
             });
@@ -161,15 +197,6 @@ const Home = props => {
                                         "No item matches your keyword"}
                                 </tbody>
                             </table>
-                            // <div className="listSearch">
-                            //     {listNameSearch.length != 0 ? listNameSearch.map(item =>
-                            //         <>
-                            //             <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
-                            //             <br />
-                            //         </>)
-                            //         :
-                            //         "No item matches your keyword"}
-                            // </div>
                             : ""}
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR SALE" items={itemsForSale} link="/listOfProduct" buttonName="View Equipment for Sale" />
@@ -192,15 +219,6 @@ const Home = props => {
                                         "No item matches your keyword"}
                                 </tbody>
                             </table>
-                            // <div className="listSearch">
-                            //     {listNameSearch.length != 0 ? listNameSearch.map(item =>
-                            //         <>
-                            //             <Link to='/productSearchList'><button key={item} className="a" onClick={() => handleSearchForKey(item)}>{item}</button></Link>
-                            //             <br />
-                            //         </>)
-                            //         :
-                            //         "No item matches your keyword"}
-                            // </div>
                             : ""}
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR RENT" items={itemsForRent} link="/listOfProduct" buttonName="View Equipment for Rent" />

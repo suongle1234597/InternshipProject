@@ -26,7 +26,9 @@ const Slide = ({
             items={items}
             autoplay={autoplay}
             autoplayTimeout={autoplayTimeout}
-            onChanged={onChanged} >
+            dotsEach={false}
+            onChanged={onChanged}
+        >
             {group.map((item) =>
                 item
             )}
