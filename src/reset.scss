@@ -1,14 +1,22 @@
-.App{
-    // background: gray;
-}
+@import "responsive";
+
 .container{
+    // @include rs-xl {
+    //     max-width: 400px!important;
+    // }
+    // @include rs-lg {
+    //     max-width: 400px!important;
+    // }
+    // @include rs-md{
+    //     max-width: 400px!important;
+    // }
+    // @include rs-sm {
+    //     max-width: 100%!important;
+    // }
     max-width: 400px!important;
     margin: auto;
     font-family: 'Work Sans', sans-serif;
     background: white;
-    // padding: 0!important;
-    // padding-right: 0px!important;
-    // padding-left: 0px!important;
 
     ul{
         list-style: none;
@@ -116,3 +124,4 @@
     padding: 15px 0;
     margin-top: 15px;
 }
+

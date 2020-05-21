@@ -1,10 +1,24 @@
+@import "../../responsive";
+
 .home{
-    width: 100%;
+    // @include rs-xl{
+    //     width: 100%;
+    // };
+    // @include  rs-lg{
+    //     width: 30%;
+    // }
+    // @include  rs-md{
+    //     width: 30%;
+    // }
+    // @include  rs-sm{
+    //     width: 30%;
+    // }
     .home-under{
         .owl-item{
             img{
-                width: 400px;
-                height: 250px;
+                width: 100%;
+                height: 15%;
+                // height: 250px;
             }
         }
     }
@@ -48,6 +62,7 @@
         }
     }
     .listSearch{
+        display: block;
         position: absolute;
         left: 0;
         top: 21%;
@@ -57,6 +72,9 @@
             background: none;
             color: black;
         }
+    }
+    .hide, table{
+        display: none;
     }
 }
 

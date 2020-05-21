@@ -26,10 +26,9 @@ const Slide = ({
             items={items}
             autoplay={autoplay}
             autoplayTimeout={autoplayTimeout}
-            dotsEach={false}
-            onChanged={onChanged}
+            onChange={onChanged}
         >
-            {group.map((item) =>
+            {group.map((item, index) =>
                 item
             )}
         </OwlCarousel>

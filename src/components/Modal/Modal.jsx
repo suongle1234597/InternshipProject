@@ -3,12 +3,10 @@ import './Modal.scss'
 import Slide from '../Slide/Slide'
 
 const Modal = props => {
-    const [index, setIndex] = useState(0)
+    const [index, setIndex] = useState(1)
 
     const onChanged = e => {
-        // console.log(e.relatedTarget._current)
-        // console.log(e.page.index)
-        // setIndex(e.item.index + 1)
+        console.log(e)
     }
 
     return (

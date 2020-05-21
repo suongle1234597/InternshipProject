@@ -1,0 +1,29 @@
+$xl: 1200px;
+$lg: 992px;
+$md: 768px;
+$sm: 576px;
+
+@mixin rs-xl {
+    @media (max-width: $xl) {
+        //content chua cac lenh o trong
+        @content 
+    };
+}
+
+@mixin rs-lg {
+    @media (min-width: $lg) {
+        @content 
+    };
+}
+
+@mixin rs-xl {
+    @media (width: $xl) {
+        @content 
+    };
+}
+
+@mixin rs-sm {
+    @media (width: $sm) {
+        @content 
+    };
+}

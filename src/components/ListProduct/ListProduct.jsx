@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useCallback, memo } from 'react';
 import './ListProduct.scss'
 import '../../reset.scss'
 import Header from '../Header/Header'
@@ -8,11 +8,8 @@ import { getListSearchProduct, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 import Product from '../Product/Product'
 import Button from '../Button/Button'
-// import { getProduct } from '../../action/ProductAction';
 
 const ListProduct = props => {
-    // const product = useSelector(state => state.productReducer.product)
-    // const listSearch = useSelector(state => state.searchReducer.listSearch)
     const dataSearch = useSelector(state => state.searchReducer.dataSearch)
     const sort = useSelector(state => state.productReducer.sort)
     const sort_key = useSelector(state => state.productReducer.sort_key)
@@ -62,17 +59,18 @@ const ListProduct = props => {
         }
     }, [dataSort])
 
-    const handleClickSale = () => {
+    const handleClickSale = useCallback(() => {
         if (toggle) {
             setToggle(false)
         }
-    }
+    }, [toggle])
 
-    const handleClickRent = () => {
+
+    const handleClickRent = useCallback(() => {
         if (!toggle) {
             setToggle(true)
         }
-    }
+    }, [toggle])
 
     //lay du lieu sort
     const handleChange = e => {

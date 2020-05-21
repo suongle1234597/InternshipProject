@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './Home.scss'
 import Search from '../Search/Search'
 import Product from '../Product/Product'
@@ -16,7 +16,7 @@ import GroupProduct from '../GroupProduct/GroupProduct'
 
 const Home = props => {
     const banners = useSelector(state => state.bannerReducer.banners)
-    const product = useSelector(state => state.productReducer.product)
+    // const product = useSelector(state => state.productReducer.product)
     const transportation = useSelector(state => state.transportationReducer.transportation)
     const repairMaintenances = useSelector(state => state.repairMaintenancesReducer.repairMaintenances)
     const listNameSearch = useSelector(state => state.searchReducer.listNameSearch)
@@ -28,27 +28,30 @@ const Home = props => {
     const [itemsForTransportation, setItemsForTransportation] = useState([])
     const [itemsForRepairMaintenances, setItemsForRepairMaintenances] = useState([])
     const [searchTerm, setSearchTerm] = useState("")
-    // const productForRent = useSelector(state => state.productReducer.productForRent)
-    // const productForSale = useSelector(state => state.productReducer.productForSale)
+    const productForRent = useSelector(state => state.productReducer.productForRent)
+    const productForSale = useSelector(state => state.productReducer.productForSale)
     const [flag, setFlag] = useState(false)
+    const typing = useRef(null);
+    const showListNameSearch = useRef(null)
 
     useEffect(() => {
         dispatch(getBanner())
-        dispatch(getProduct())
-        // dispatch(getListSearchProduct({
-        //     ...dataSearch,
-        //     purpose: 0
-        // }, true))
-        // //lay data cau For Rent
-        // dispatch(getListSearchProduct({
-        //     ...dataSearch,
-        //     purpose: 1
-        // }, true))
+        // dispatch(getProduct())
+        dispatch(getListSearchProduct({
+            ...dataSearch,
+            purpose: 0
+        }, false))
+        // lay data cau For Rent
+        dispatch(getListSearchProduct({
+            ...dataSearch,
+            purpose: 1
+        }, false))
         dispatch(getTransportation())
         dispatch(getRepairMaintenances())
-
+        document.addEventListener('click', handleClickOutSide, true)
         return () => {
-            console.log("clean up")
+            document.removeEventListener('click', handleClickOutSide, true)
+
         }
     }, [])
 
@@ -73,44 +76,18 @@ const Home = props => {
         }
     }, [banners])
 
-    useEffect(() => {
-        if (!is_Empty(product)) {
-            var arr = product.data.filter(item => item.purpose === "for_sale" || item.purpose === "for_sale_and_rent")
-            var array = []
-            arr.forEach(item => {
-                array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
-            });
-            setItemsForSale(array)
-
-            var arr2 = product.data.filter(item => item.purpose === "for_rent" || item.purpose === "for_sale_and_rent")
-            var array2 = []
-            arr2.forEach(item => {
-                array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
-            });
-            setItemsForRent(array2)
-        }
-        return () => {
-            console.log("clean up")
-        }
-    }, [product])
-
     // useEffect(() => {
-    //     if (!is_Empty(productForSale)) {
-    //         let array = []
-    //         productForSale.data.forEach(item => {
+    //     if (!is_Empty(product)) {
+    //         var arr = product.data.filter(item => item.purpose === "for_sale" || item.purpose === "for_sale_and_rent")
+    //         var array = []
+    //         arr.forEach(item => {
     //             array.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
     //         });
     //         setItemsForSale(array)
-    //     }
-    //     return () => {
-    //         console.log("clean up")
-    //     }
-    // }, [productForSale])
 
-    // useEffect(() => {
-    //     if (!is_Empty(productForRent)) {
-    //         let array2 = []
-    //         productForRent.data.forEach(item => {
+    //         var arr2 = product.data.filter(item => item.purpose === "for_rent" || item.purpose === "for_sale_and_rent")
+    //         var array2 = []
+    //         arr2.forEach(item => {
     //             array2.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
     //         });
     //         setItemsForRent(array2)
@@ -118,7 +95,33 @@ const Home = props => {
     //     return () => {
     //         console.log("clean up")
     //     }
-    // }, [productForRent])
+    // }, [product])
+
+    useEffect(() => {
+        if (!is_Empty(productForSale.data)) {
+            let array5 = []
+            productForSale.data.forEach(item => {
+                array5.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+            });
+            setItemsForSale(array5)
+        }
+        return () => {
+            console.log("clean up")
+        }
+    }, [productForSale])
+
+    useEffect(() => {
+        if (!is_Empty(productForRent.data)) {
+            let array6 = []
+            productForRent.data.forEach(item => {
+                array6.push(<Product key={item.id} domain="product" id={item.id} img={item.images[0].url.original} name={item.model} price={item.serial_number} />, )
+            });
+            setItemsForRent(array6)
+        }
+        return () => {
+            console.log("clean up")
+        }
+    }, [productForRent])
 
     useEffect(() => {
         if (!is_Empty(transportation)) {
@@ -150,9 +153,17 @@ const Home = props => {
         setSearchTerm(e.target.value)
     }
 
-    //khi nhap tu khoa de search hoac nhan enter
+    //khi nhap tu khoa de search hoac nhan enter-> giup k call api nhieu lan
     const handleSearch = () => {
-        dispatch(getNameSearch(searchTerm))
+        if (typing.current) {
+            clearTimeout(typing.current)
+        };
+        typing.current = setTimeout(() => {
+            const valueSearch = {
+                searchTerm: searchTerm,
+            }
+            dispatch(getNameSearch(valueSearch.searchTerm))
+        }, 1000)
     }
 
     //khi click vao key chon
@@ -164,9 +175,25 @@ const Home = props => {
         // dispatch(getListSearchProduct(dataSearch))
     }
 
+    //khi click vao ben ngoai thi xet cai currnet hien tai
+    const handleClickOutSide = e => {
+        if (showListNameSearch.current !== null) {
+            //neu chua class listSearch thi
+            if (showListNameSearch.current.classList.contains("listSearch")) {
+                if (!showListNameSearch.current || !showListNameSearch.current.contains(e.target)) {
+                    //xet laij no bang false
+                    setFlag(false)
+                    e.stopPropagation()
+                }
+            }
+        }
+    }
+
     //khi click vao search hien ra list
     const handleClickSearch = () => {
-        dispatch(getListNameSearch())
+        if (searchTerm === "") {
+            dispatch(getListNameSearch())
+        }
         setFlag(true)
     }
 
@@ -183,21 +210,19 @@ const Home = props => {
                 {!props.toggle ?
                     <>
                         <Search function="sale" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} handleClickSearch={handleClickSearch} />
-                        {flag ?
-                            <table className="listSearch table table-striped">
-                                <tbody>
-                                    {listNameSearch.length != 0 ? listNameSearch.map((item, index) =>
-                                        <tr key={index}>
-                                            <td>
-                                                <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
-                                                <br />
-                                            </td>
-                                        </tr>)
-                                        :
-                                        "No item matches your keyword"}
-                                </tbody>
-                            </table>
-                            : ""}
+                        <table ref={showListNameSearch} className={flag ? "listSearch table table-striped" : "table table-striped"}>
+                            <tbody>
+                                {listNameSearch.length !== 0 ? listNameSearch.map((item, index) =>
+                                    <tr key={index}>
+                                        <td>
+                                            <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                                            <br />
+                                        </td>
+                                    </tr>)
+                                    :
+                                    "No item matches your keyword"}
+                            </tbody>
+                        </table>
                         {itemsForSale.length != 0 ?
                             <GroupProduct title="FOR SALE" items={itemsForSale} link="/listOfProduct" buttonName="View Equipment for Sale" />
                             : "No equipment for sale"}
@@ -205,22 +230,21 @@ const Home = props => {
                     :
                     <>
                         <Search function="rental" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
-                        {flag ?
-                            <table class="listSearch table table-striped">
-                                <tbody>
-                                    {listNameSearch.length != 0 ? listNameSearch.map(item =>
-                                        <tr>
-                                            <td>
-                                                <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
-                                                <br />
-                                            </td>
-                                        </tr>)
-                                        :
-                                        "No item matches your keyword"}
-                                </tbody>
-                            </table>
-                            : ""}
-                        {itemsForSale.length != 0 ?
+                        <table useRef={showListNameSearch} className={flag ? "listSearch table table-striped" : "table table-striped"}>
+                            <tbody>
+                                {listNameSearch.length !== 0 ? listNameSearch.map((item, index) =>
+                                    <tr key={index}>
+                                        <td>
+                                            <Link to='/search'><button key={item} onClick={() => handleSearchForKey(item)}>{item}</button></Link>
+                                            <br />
+                                        </td>
+                                    </tr>)
+                                    :
+                                    "No item matches your keyword"}
+                            </tbody>
+                        </table>
+                        <div className="hide">{itemsForRent}</div>
+                        {!is_Empty(itemsForRent) ?
                             <GroupProduct title="FOR RENT" items={itemsForRent} link="/listOfProduct" buttonName="View Equipment for Rent" />
                             : "No equipment for rent"}
                     </>

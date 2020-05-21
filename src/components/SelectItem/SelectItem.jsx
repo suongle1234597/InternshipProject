@@ -65,7 +65,7 @@ const SelectItem = props => {
             <button className="done flex" onClick={handleComeBack}>
               <i className="fas fa-chevron-left"></i>
               Done
-     </button>
+            </button>
             <h6>Select Products</h6>
             <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>
@@ -85,7 +85,7 @@ const SelectItem = props => {
             <button className="done flex" onClick={handleComeBack}>
               <i className="fas fa-chevron-left"></i>
               Done
-     </button>
+            </button>
             <h6>Select Brand</h6>
             <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>
@@ -105,7 +105,7 @@ const SelectItem = props => {
             <button className="done flex" onClick={handleComeBack}>
               <i className="fas fa-chevron-left"></i>
               Done
-     </button>
+            </button>
             <h6>Select Availability</h6>
             <Link to="/productSearchList"><button onClick={handleSearch}>Search</button></Link>
           </div>

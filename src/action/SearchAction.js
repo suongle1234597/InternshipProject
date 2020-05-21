@@ -35,9 +35,23 @@ export const resetSelectProductType = (data) => async dispatch => {
 }
 
 export const selectProductTypes = (data, id) => dispatch => {
-    let arr = {
-        ...data,
-        product_type_ids: [...data.product_type_ids, id]
+    let arr = {}
+
+    if (!isEmpty(data.product_type_ids) && data.product_type_ids.findIndex(item => item === id) !== -1) {
+        const index = data.product_type_ids.findIndex(item => item === id)
+        const arr1 = data.product_type_ids.slice(0, index)
+        const arr2 = data.product_type_ids.slice(index + 1)
+        const array = arr1.concat(arr2)
+        arr = {
+            ...data,
+            product_type_ids: array
+        }
+    }
+    else {
+        arr = {
+            ...data,
+            product_type_ids: [...data.product_type_ids, id]
+        }
     }
 
     dispatch({
@@ -70,9 +84,23 @@ export const resetSelectBrands = (data) => async dispatch => {
 }
 
 export const selectBrand = (data, id) => dispatch => {
-    let arr = {
-        ...data,
-        brand_ids: [...data.brand_ids, id]
+    let arr = {}
+
+    if (!isEmpty(data.brand_ids) && data.brand_ids.findIndex(item => item === id) !== -1) {
+        const index = data.brand_ids.findIndex(item => item === id)
+        const arr1 = data.brand_ids.slice(0, index)
+        const arr2 = data.brand_ids.slice(index + 1)
+        const array = arr1.concat(arr2)
+        arr = {
+            ...data,
+            brand_ids: array
+        }
+    }
+    else {
+        arr = {
+            ...data,
+            brand_ids: [...data.brand_ids, id]
+        }
     }
 
     dispatch({
@@ -105,9 +133,23 @@ export const resetSelectAvailability = (data) => async dispatch => {
 }
 
 export const selectAvailability = (data, id) => dispatch => {
-    let arr = {
-        ...data,
-        status: [...data.status, id]
+    let arr = {}
+
+    if (!isEmpty(data.status) && data.status.findIndex(item => item === id) !== -1) {
+        const index = data.status.findIndex(item => item === id)
+        const arr1 = data.status.slice(0, index)
+        const arr2 = data.status.slice(index + 1)
+        const array = arr1.concat(arr2)
+        arr = {
+            ...data,
+            status: array
+        }
+    }
+    else {
+        arr = {
+            ...data,
+            status: [...data.status, id]
+        }
     }
 
     dispatch({
@@ -144,11 +186,23 @@ export const setDataSearch = (data) => async dispatch => {
     })
 }
 
-export const getListSearchProduct = (data, flag) => async dispatch => {
+export const getErrors = (data, history) => async dispatch => {
     dispatch({
         type: CLEAR_ERROR
     })
     let errors = {}
+    if (!isEmpty(data.from_use) && Number(data.from_use) <= 0) {
+        errors.running = "Invalid running hours"
+    }
+    if (!isEmpty(data.to_use) && Number(data.to_use) <= 0) {
+        errors.running = "Invalid running hours"
+    }
+    if (!isEmpty(data.from_year) && Number(data.from_year) <= 0) {
+        errors.year = "Invalid years"
+    }
+    if (!isEmpty(data.to_year) && Number(data.to_year) <= 0) {
+        errors.year = "Invalid years"
+    }
     if ((!isEmpty(data.from_use) && !isEmpty(data.to_use) && Number(data.from_use) >= Number(data.to_use))) {
         errors.running = "Invalid running hours"
     }
@@ -162,65 +216,64 @@ export const getListSearchProduct = (data, flag) => async dispatch => {
         })
     }
     else {
-        let obj = {
-            search_key: data.search_key,
-            from_use: data.from_use,
-            to_use: data.to_use,
-            from_year: data.from_year,
-            to_year: data.to_year,
-            sort: "asc",
-            sort_key: "created_at",
-            purpose: data.purpose,
-        }
-        if (!isEmpty(data.sort_key) && !isEmpty(data.sort)) {
-            obj.sort = data.sort
-            obj.sort_key = data.sort_key
-        }
-        // if (isEmpty(data.purpose)) {
-        //     obj.purpose = 0
-        // }
-        console.log(data.purpose)
-        await axios.get("http://huasing.vinova.sg/api/v1/products", {
-            params: obj,
-            body: {
-                product_type_ids: data.product_type_ids,
-                brand_ids: data.brand_ids,
-                status: data.status,
-                // purpose: data.purpose
-            }
-        }).then(res_api => {
-            if (flag === true) {
-                if (data.purpose === 1) {
-                    dispatch({
-                        type: GET_LIST_SEARCH_FOR_RENT,
-                        response: res_api.data
-                    })
-                }
-                else if (data.purpose === 0) {
-                    dispatch({
-                        type: GET_LIST_SEARCH_FOR_SALE,
-                        response: res_api.data
-                    })
-                }
-            }
-            else {
-                if (data.purpose === 1) {
-                    dispatch({
-                        type: GET_PRODUCT_FOR_RENT,
-                        response: res_api.data
-                    })
-                }
-                else if (data.purpose === 0) {
-                    dispatch({
-                        type: GET_PRODUCT_FOR_SALE,
-                        response: res_api.data
-                    })
-                }
-            }
-        }).catch(error => {
-            console.log(error)
-        })
+        history.push('/productSearchList')
     }
+}
+
+export const getListSearchProduct = (data, flag) => async dispatch => {
+    let obj = {
+        search_key: data.search_key,
+        from_use: data.from_use,
+        to_use: data.to_use,
+        from_year: data.from_year,
+        to_year: data.to_year,
+        sort: "asc",
+        sort_key: "created_at",
+        purpose: data.purpose,
+    }
+    if (!isEmpty(data.sort_key) && !isEmpty(data.sort)) {
+        obj.sort = data.sort
+        obj.sort_key = data.sort_key
+    }
+    await axios.get("http://huasing.vinova.sg/api/v1/products", {
+        params: obj,
+        body: {
+            product_type_ids: data.product_type_ids,
+            brand_ids: data.brand_ids,
+            status: data.status,
+        }
+    }).then(res_api => {
+        if (flag === true) {
+            if (data.purpose === 1) {
+                dispatch({
+                    type: GET_LIST_SEARCH_FOR_RENT,
+                    response: res_api.data
+                })
+            }
+            else if (data.purpose === 0) {
+                dispatch({
+                    type: GET_LIST_SEARCH_FOR_SALE,
+                    response: res_api.data
+                })
+            }
+        }
+        else {
+            if (data.purpose === 1) {
+                dispatch({
+                    type: GET_PRODUCT_FOR_RENT,
+                    response: res_api.data
+                })
+            }
+            else if (data.purpose === 0) {
+                dispatch({
+                    type: GET_PRODUCT_FOR_SALE,
+                    response: res_api.data
+                })
+            }
+        }
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 export const getListNameSearch = () => async dispatch => {

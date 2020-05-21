@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './SearchProduct.scss'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getProductType, getBrands, getAvailability, getListSearchProduct, resetAll, setDataSearch } from '../../action/SearchAction'
+import { getProductType, getBrands, getAvailability, getErrors, resetAll, setDataSearch } from '../../action/SearchAction'
 import isEmpty from '../../isEmpty'
 
 const SearchProduct = props => {
@@ -73,7 +73,7 @@ const SearchProduct = props => {
     const handleChange = e => {
         dispatch(setDataSearch({
             ...dataSearch,
-            [e.target.name]: Number(e.target.value)
+            [e.target.name]: e.target.value
         }))
     }
 
@@ -84,6 +84,10 @@ const SearchProduct = props => {
         setItemsForAvailability([])
     }
 
+    const handleSearch = () => {
+        dispatch(getErrors(dataSearch, props.history))
+    }
+
     return (
         <div className="settings searchproduct">
             <div className="head flex">
@@ -92,7 +96,7 @@ const SearchProduct = props => {
                     Back
                 </button></Link>
                 <h6>Search Products</h6>
-                <Link to="/productSearchList"><button>Search</button></Link>
+                <button onClick={handleSearch}>Search</button>
             </div>
 
             <Link to='/selectProduct'>
@@ -122,12 +126,12 @@ const SearchProduct = props => {
                 Running
                 <div className="running flex">
                     <div className="inputNumber">
-                        <input type="number" value={dataSearch.from_use} onChange={handleChange} name="from_use" />
+                        <input type="number" value={dataSearch.from_use} onChange={handleChange} name="from_use" min='0' />
                         <p>hrs</p>
                     </div>
                     <p className="to">-</p>
                     <div className="inputNumber">
-                        <input type="number" value={dataSearch.to_use} onChange={handleChange} name="to_use" />
+                        <input type="number" value={dataSearch.to_use} onChange={handleChange} name="to_use" min='0' />
                         <p>hrs</p>
                     </div>
                 </div>
@@ -137,11 +141,11 @@ const SearchProduct = props => {
                 Year
                 <div className="running flex">
                     <div className="inputNumber">
-                        <input type="number" value={dataSearch.from_year} onChange={handleChange} name="from_year" />
+                        <input type="number" value={dataSearch.from_year} onChange={handleChange} name="from_year" min={0} />
                     </div>
                     <p className="to">-</p>
                     <div className="inputNumber">
-                        <input type="number" value={dataSearch.to_year} onChange={handleChange} name="to_year" />
+                        <input type="number" value={dataSearch.to_year} onChange={handleChange} name="to_year" min={0} />
                     </div>
                 </div>
                 {!isEmpty(errors.year) && <p>{errors.year}</p>}
