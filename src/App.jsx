@@ -25,6 +25,7 @@ const App = () => {
   ]
 
   const [optionsModal, setOptionsModal] = useState([])
+  const [position, setPosition] = useState(0)
 
   const handleClickShowModal = () => {
     setModal(true)
@@ -52,10 +53,10 @@ const App = () => {
         <div className="container">
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />
-            <Route path='/listService' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
-            <Route path='/listRepair/:id' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
-            <Route path='/product/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
-            <Route path='/service/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} />} />
+            <Route path='/listService' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} position={position} />} />
+            <Route path='/listRepair/:id' render={(props) => <ListImg {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} position={position} />} />
+            <Route path='/product/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} position={position} />} />
+            <Route path='/service/:id' render={(props) => <Detail {...props} handleClickShowModal={handleClickShowModal} setOptionsModal={setOptionsModal} position={position} />} />
             <Route path='/view' render={() => <ViewEquipment toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} />
             <Route path='/requestproduct/:id' component={Request} />
             <Route path='/requestservice/:id' component={Request} />

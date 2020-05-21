@@ -14,7 +14,8 @@ const Slide = ({
     margin,
     loop,
     autoplayTimeout,
-    onChanged
+    onChanged,
+    startPosition
 }) => {
     return (
         <OwlCarousel
@@ -26,7 +27,9 @@ const Slide = ({
             items={items}
             autoplay={autoplay}
             autoplayTimeout={autoplayTimeout}
+            startPosition={startPosition}
             onChange={onChanged}
+
         >
             {group.map((item, index) =>
                 item
@@ -44,6 +47,7 @@ Slide.propTypes = {
     margin: PropTypes.number,
     loop: PropTypes.oneOf([true, false]),
     autoplayTimeout: PropTypes.number,
+    startPosition: PropTypes.number,
     onChanged: PropTypes.func
 }
 
