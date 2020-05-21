@@ -230,7 +230,7 @@ const Home = props => {
                     :
                     <>
                         <Search function="rental" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
-                        <table useRef={showListNameSearch} className={flag ? "listSearch table table-striped" : "table table-striped"}>
+                        <table ref={showListNameSearch} className={flag ? "listSearch table table-striped" : "table table-striped"}>
                             <tbody>
                                 {listNameSearch.length !== 0 ? listNameSearch.map((item, index) =>
                                     <tr key={index}>

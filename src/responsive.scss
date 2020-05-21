@@ -16,8 +16,8 @@ $sm: 576px;
     };
 }
 
-@mixin rs-xl {
-    @media (width: $xl) {
+@mixin rs-md {
+    @media (width: $md) {
         @content 
     };
 }

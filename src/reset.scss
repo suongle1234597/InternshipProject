@@ -1,18 +1,6 @@
 @import "responsive";
 
 .container{
-    // @include rs-xl {
-    //     max-width: 400px!important;
-    // }
-    // @include rs-lg {
-    //     max-width: 400px!important;
-    // }
-    // @include rs-md{
-    //     max-width: 400px!important;
-    // }
-    // @include rs-sm {
-    //     max-width: 100%!important;
-    // }
     max-width: 400px!important;
     margin: auto;
     font-family: 'Work Sans', sans-serif;
@@ -57,10 +45,22 @@
 
 .modalActive{
     position: fixed;
+    // left: 0;
+    // right: 0;
+    // background:rgb(46, 45, 45);
+    // opacity: 0.2;
+    // display: block;
+    // width: 100%;
+    // height: 100%;
+    // z-index: 97;
+}
+
+.contentModal{
+    position: fixed;
     left: 0;
     right: 0;
-    background:rgb(46, 45, 45);
-    opacity: 0.2;
+    background:rgba(rgb(46, 45, 45), 0.2) ;
+    // opacity: 0.2;
     display: block;
     width: 100%;
     height: 100%;

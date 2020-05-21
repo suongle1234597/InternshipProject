@@ -1,3 +1,5 @@
+@import "../../responsive";
+
 .listProduct{
     flex-wrap: wrap;
     text-align: center;
@@ -13,19 +15,47 @@
             -moz-appearance: none;
             appearance: none;      
             color: var(--orange);
-            
+            background: var(--white);
             &:focus{
                 outline: none;
             }
         }
-        optgroup{
-            background: black;
-        }
+      
         option{
             outline: none;
             border: none;
+            background: var(--white);
+            &:hover{
+            background: var(--white);
 
+            }
         }
+        // .select-items  {
+        //     color: #ffffff;
+        //     padding: 8px 16px;
+        //     border: 1px solid transparent;
+        //     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        //     cursor: pointer;
+        //   }
+          
+        //   /* Style items (options): */
+        //   .select-items {
+        //     position: absolute;
+        //     background-color: DodgerBlue;
+        //     top: 100%;
+        //     left: 0;
+        //     right: 0;
+        //     z-index: 99;
+        //   }
+          
+        //   /* Hide the items when the select box is closed: */
+        //   .select-hide {
+        //     display: none;
+        //   }
+          
+        //   .select-items div:hover, .same-as-selected {
+        //     background-color: rgba(0, 0, 0, 0.1);
+        //   }
     }
     .showProduct{
         padding: 0px 15px 15px 15px;
@@ -34,11 +64,32 @@
         border-bottom: 1px solid var(--lightgray);
     }
     .product{
-        width: 165px;
-        height: 230px;
-        img{
+        @include rs-xl{ 
+            width: 140px;
+            height: 210px;
+        };
+        @include rs-lg { 
             width: 165px;
-            height: 165px;
+            height: 230px;
+        }
+        @include rs-md { 
+            width: 165px;
+            height: 230px;
+        }
+       
+        img{
+            @include rs-xl{ 
+                width: 145px;
+                height: 145px;
+            };
+            @include rs-lg { 
+                width: 165px;
+                height: 165px;
+            }
+            @include rs-md { 
+                width: 165px;
+                height: 165px;
+            }
         }
     }
     header{

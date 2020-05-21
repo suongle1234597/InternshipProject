@@ -48,7 +48,7 @@ const App = () => {
 
   return (
     <>
-      <div className={modal === true ? "App modalActive" : "App"} >
+      <div className={modal === true ? "App contentModal" : "App"} >
         <div className="container">
           <Router>
             <Route path='/' render={() => <Home toggle={toggle} handleClickRent={handleClickRent} handleClickSale={handleClickSale} />} exact />

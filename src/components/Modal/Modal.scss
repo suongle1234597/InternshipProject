@@ -1,9 +1,9 @@
+@import "../../responsive";
+
 .modalpreview{
-    position: fixed;
-    // position: relative;
+    position: relative;
     opacity: 1;
-    top: 0;
-    right: 37%;
+  
     z-index: 100;
     background: var(--gray-text-button);
     height: 100vh;
