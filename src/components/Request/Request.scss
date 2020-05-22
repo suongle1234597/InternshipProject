@@ -4,11 +4,44 @@
     textarea{
         padding: 15px;
         height: 159px;
+        &:focus{
+            outline: none;
+        }
     }
     .submit{
         width: 100%;
         padding: 15px 0;
         margin-top: 15px;
+        border-radius: 0;
         background: var(--gray-background-button);
+    }
+    .request-bottom{
+        padding: 15px;
+        select{
+            width: 100%;
+            padding: 5px 10px;
+            margin-bottom: 15px;
+            margin-top: -10px;
+            &:hover, &:focus{
+                outline: none;
+            }
+        }
+        .textFieldGroup{
+            margin-bottom: 15px;
+            &.area{
+                width: 40%;
+                margin-right: 10px;
+            }
+            &.phone{
+                width: 100%;
+            }
+        }
+        input{
+            width: 100%;
+           
+        }
+        .number{
+            align-items: center;
+        }
     }
 }

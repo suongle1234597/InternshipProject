@@ -2,9 +2,9 @@
     position: relative;
     height: 97vh;
     a{
-        color: black;
+        color: var(--black);
         &:hover{
-            color: black;
+            color: var(--black);
         }
     }
     // h6{
@@ -20,7 +20,7 @@
             color: var(--black);
         }
         &.logout{
-            border-bottom: 1px solid #D5D5D5;
+            border-bottom: 1px solid var(--lightgray);
         }
     }
     .head{

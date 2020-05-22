@@ -14,20 +14,20 @@
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;      
-            color: var(--orange);
-            background: var(--white);
+            color: var(--baseColor);
+            background: var(--colorWhite);
             &:focus{
                 outline: none;
+                box-shadow: none;
             }
+            padding-right: 0;
         }
       
         option{
-            outline: none;
-            border: none;
-            background: var(--white);
-            &:hover{
-                 background: var(--white);
-
+            background: var(--colorWhite);
+            color: var(--black);
+            &:checked{
+                color: var(--baseColor);
             }
         }
       
@@ -75,7 +75,7 @@
     
             &.active{
                 border: none;
-                border-bottom: 1.5px solid var(--orange);
+                border-bottom: 1.5px solid var(--baseColor);
             }
         }
     }

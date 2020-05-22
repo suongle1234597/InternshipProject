@@ -1,7 +1,11 @@
 .textFieldGroup{
     input{
-        border: 1px solid #D5D5D5;
+        border: 1px solid var(--lightgray);
         padding: 5px 10px;
         // width: 150px;
+        &:disabled{
+            background: var(--darkwhite);
+        }
     }
+
 }

@@ -161,7 +161,7 @@ const ListProduct = props => {
                 }
 
                 <div className="sort">
-                    <select name="sort" id="" value={dataSort} onChange={handleChange} className="select">
+                    <select name="sort" id="" value={dataSort} onChange={handleChange} className="select custom-select">
                         <option value="1">Latest</option>
                         <option value="2">Year ↓</option>
                         <option value="3">Year ↑</option>

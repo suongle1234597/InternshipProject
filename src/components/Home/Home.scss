@@ -53,8 +53,8 @@
                     border-top-right-radius: 5px;
                     border-bottom-right-radius: 0;
                     border-bottom-left-radius: 0;
-                    border-bottom: 1.5px solid var(--orange);
-                    color: #FC7521;
+                    border-bottom: 1.5px solid var(--baseColor);
+                    color: var(--baseColor);
                 }
             }
         }
@@ -64,11 +64,11 @@
         position: absolute;
         left: 0;
         top: 21%;
-        background: var(--white);
+        background: var(--colorWhite);
         z-index: 99;
         button{
             background: none;
-            color: black;
+            color: var(--black);
         }
     }
     .hide, table{

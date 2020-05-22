@@ -14,8 +14,8 @@ const Slide = ({
     margin,
     loop,
     autoplayTimeout,
-    onChanged,
-    startPosition
+    startPosition,
+    mouseDrag
 }) => {
     return (
         <OwlCarousel
@@ -28,10 +28,9 @@ const Slide = ({
             autoplay={autoplay}
             autoplayTimeout={autoplayTimeout}
             startPosition={startPosition}
-            onChange={onChanged}
-
+            mouseDrag={mouseDrag}
         >
-            {group.map((item, index) =>
+            {group.map((item) =>
                 item
             )}
         </OwlCarousel>
@@ -48,7 +47,7 @@ Slide.propTypes = {
     loop: PropTypes.oneOf([true, false]),
     autoplayTimeout: PropTypes.number,
     startPosition: PropTypes.number,
-    onChanged: PropTypes.func
+    mouseDrag: PropTypes.oneOf(true, false)
 }
 
 export default Slide

@@ -4,6 +4,7 @@ import './Request.scss'
 import { getTransportationDetail } from '../../action/TransportationAction'
 import { getProductDetail } from '../../action/ProductAction'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 import is_Empty from '../../isEmpty'
 
 const Request = props => {
@@ -68,38 +69,58 @@ const Request = props => {
         <>
             {props.match.path.split('/')[1] === "requestproduct" ?
                 <div className="request">
-                    <h6>Request for Quote</h6>
-                    <TextFieldGroup value={formData.productName} onChange={handleChange} info="Product" name="productName" />
-                    <select name="" id="">
-                        <option value="">Purchase</option>
-                    </select>
-                    <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" placeholder="e.g. Construction Pt. Ltd." />
-                    <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" placeholder="e.g. join smith" />
-                    <div className="number flex">
-                        <TextFieldGroup value={formData.contactNumber} onChange={handleChange} info="Contact Number*" name="contactNumber" />
-                        {/* <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" /> */}
+                    <div className="head flex">
+                        <Link to="/"><button className="done flex" >
+                            <i className="fas fa-chevron-left"></i>
+                            Back
+                        </button></Link>
+                        <h6>Request for Quote</h6>
+                        <Link to="/"><button>Call us</button></Link>
                     </div>
-                    <p>More info</p>
-                    <textarea name="content" id="" cols="33" rows="10" placeholder="How can we help?">
-                    </textarea>
+                    <div className="request-bottom">
+                        <TextFieldGroup value={formData.productName} onChange={handleChange} info="Product" name="productName" disabled />
+                        <select name="" id="">
+                            <option value="">Purchase</option>
+                        </select>
+                        <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" placeholder="e.g. Construction Pt. Ltd." />
+                        <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" placeholder="e.g. join smith" />
+                        <p>Contact Number*</p>
+                        <div className="number flex">
+                            <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" className="area" />
+                            <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" className="phone" />
+                        </div>
+                        <p>More info</p>
+                        <textarea name="content" id="" cols="30" rows="8" placeholder="How can we help?">
+                        </textarea>
+                    </div>
                     <button className="submit">Submit</button>
                 </div>
                 :
                 <div className="request">
-                    <h6>Request for Quote</h6>
-                    <TextFieldGroup value={formData.productName} onChange={handleChange} info="Product" name="productName" />
-                    <select name="" id="">
-                        <option value="">Purchase</option>
-                    </select>
-                    <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" placeholder="e.g. Construction Pt. Ltd." />
-                    <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" placeholder="e.g. join smith" />
-                    <div className="number flex">
-                        <TextFieldGroup value={formData.contactNumber} onChange={handleChange} info="Contact Number*" name="contactNumber" />
-                        {/* <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" /> */}
+                    <div className="head flex">
+                        <Link to="/"><button className="done flex" >
+                            <i className="fas fa-chevron-left"></i>
+                            Back
+                        </button></Link>
+                        <h6>Request for Quote</h6>
+                        <Link to="/"><button>Call us</button></Link>
                     </div>
-                    <p>More info</p>
-                    <textarea name="content" id="" cols="33" rows="10" placeholder="How can we help?">
-                    </textarea>
+                    <div className="request-bottom">
+                        <TextFieldGroup value={formData.productName} onChange={handleChange} info="Product" name="productName" />
+                        <select name="" id="">
+                            <option value="">Purchase</option>
+                        </select>
+                        <TextFieldGroup value={formData.company} onChange={handleChange} info="Company Name*" name="company" placeholder="e.g. Construction Pt. Ltd." />
+                        <TextFieldGroup value={formData.contactName} onChange={handleChange} info="Contact Name*" name="contactName" placeholder="e.g. join smith" />
+                        <p>Contact Number*</p>
+                        <div className="number flex">
+                            <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" className="area" />
+                            <TextFieldGroup value={formData.contactNumber} onChange={handleChange} name="contactNumber" className="phone" />
+                        </div>
+                        <p>More info</p>
+                        <textarea name="content" id="" cols="30" rows="8" placeholder="How can we help?">
+                        </textarea>
+                    </div>
                     <button className="submit">Submit</button>
                 </div>
             }

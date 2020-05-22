@@ -3,14 +3,14 @@
         position: unset;
     }
     i.fa-check{
-        color: var(--orange);
+        color: var(--baseColor);
     }
     .head{
         justify-content: space-between;
         position: relative;
         button{
             background: none;
-            color: var(--orange);
+            color: var(--baseColor);
             &.done{
                 padding-left: 15px;
                 position: unset;

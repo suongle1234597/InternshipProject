@@ -135,7 +135,7 @@ const SearchProduct = props => {
                         <p>hrs</p>
                     </div>
                 </div>
-                {!isEmpty(errors.running) && <p>{errors.running}</p>}
+                {!isEmpty(errors.running) && <p className="error">{errors.running}</p>}
             </div>
             <div className="item year">
                 Year
@@ -148,7 +148,7 @@ const SearchProduct = props => {
                         <input type="number" value={dataSearch.to_year} onChange={handleChange} name="to_year" min={0} />
                     </div>
                 </div>
-                {!isEmpty(errors.year) && <p>{errors.year}</p>}
+                {!isEmpty(errors.year) && <p className="error">{errors.year}</p>}
             </div>
             <div className="contact">
                 <button className="view" onClick={handleResetSelection}>Reset Selection</button>

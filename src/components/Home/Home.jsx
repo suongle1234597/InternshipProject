@@ -223,13 +223,13 @@ const Home = props => {
                                     "No item matches your keyword"}
                             </tbody>
                         </table>
-                        {itemsForSale.length != 0 ?
+                        {itemsForSale.length !== 0 ?
                             <GroupProduct title="FOR SALE" items={itemsForSale} link="/listOfProduct" buttonName="View Equipment for Sale" />
                             : "No equipment for sale"}
                     </>
                     :
                     <>
-                        <Search function="rental" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} />
+                        <Search function="rental" handleSearch={handleSearch} handleChange={handleChange} searchTerm={searchTerm} handleClickSearch={handleClickSearch} />
                         <table ref={showListNameSearch} className={flag ? "listSearch table table-striped" : "table table-striped"}>
                             <tbody>
                                 {listNameSearch.length !== 0 ? listNameSearch.map((item, index) =>
@@ -252,7 +252,7 @@ const Home = props => {
             </div>
 
             <div className="transportation">
-                {itemsForTransportation.length != 0 ?
+                {itemsForTransportation.length !== 0 ?
                     <GroupProduct title="TRANSPORTATION SERVICE" items={itemsForTransportation} link="/listService" buttonName="View Transportation Service" />
                     : ""}
             </div>

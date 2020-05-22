@@ -14,7 +14,7 @@
     button{
         border: none;
         background: none;
-        background: #FC7521;
+        background: var(--baseColor);
         border-radius: 5px;
         color: white;
         &:focus{
@@ -73,7 +73,7 @@
     border-bottom: 1px solid var(--lightgray);
     button{
         background: none;
-        color: var(--orange);
+        color: var(--baseColor);
         &.done{
             padding-left: 15px;
         }
@@ -106,17 +106,18 @@
 }
 
 :root{
-    --orange: #FC7521;
+    --baseColor: #FC7521;
     --gray-background: #E4E4E4;
     --gray-background-button: #B5B5B5;
     --lightgray: #D5D5D5;
-    --white: white;
+    --colorWhite: white;
     --darkgray: rgba(72, 72, 72, 0.5);
     --darkwhite: #F1F1F1;
     --gray-text-button :#7F7F7F;
     --gray-question: #484848;
     --black: black;
-    --green: #59C094;
+    --colorGreen: #59C094;
+    --colorRed: red;
 }
 
 .button{
